@@ -5,17 +5,19 @@ syntax = "proto3";
 
 //define package
 //package can include multiple services
-package authorPackage;
+package literaryPackage;
 
 //building service
 //methods take in some param, returns some param
 //createAuthor returns an author (name string)
-service CustomerService {
+service AuthorService {
   rpc createAuthor (Author) returns (Author);
   rpc getAuthors (noParams) returns (Authors);
+  rpc editAuthor (Author) returns (Author);
+  rpc deleteAuthor (Author) returns (Author);
 }
 
-//data schema
+//defining data schema
 message noParams {}
 
 message Author {
