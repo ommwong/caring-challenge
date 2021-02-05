@@ -1,0 +1,28 @@
+//building proto schema
+
+//protocol buffer version
+syntax = "proto3";
+
+//define package
+//package can include multiple services
+package authorPackage;
+
+//building service
+//methods take in some param, returns some param
+//createAuthor returns an author (name string)
+service CustomerService {
+  rpc createAuthor (Author) returns (Author);
+  rpc getAuthors (noParams) returns (Authors);
+}
+
+//data schema
+message noParams {}
+
+message Author {
+  int32 id = 1;
+  string name = 2;
+}
+
+message Authors {
+  repeated Author authors = 1;
+}
