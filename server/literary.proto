@@ -17,7 +17,7 @@ service AuthorService {
   rpc deleteAuthor (Author) returns (Author);
 }
 
-//defining data schema
+//defining parameter schema
 message noParams {}
 
 message Author {
