@@ -61,17 +61,23 @@ function getAuthor(call, callback) {
 };
 
 function updateAuthor(call, callback) {
-  let author = authors.find(author => author.id == call.request.id);
+  const author = {
+    name: call.request.name
+  };
 
-  if (author) {
-    author.name = call.request.name;
-    callback(null, author);
-  } else {
-    callback({
-      code: grpc.status.NOT_FOUND,
-      details: "Author not found"
+  knex('authors')
+    .where(author)
+    .update({
+      name: call.request.updatedName
     })
-  }
+    .returning()
+    .then(data => {
+      if (data) {
+        callback(null, data)
+      } else {
+        callback('Author does not exist')
+      }
+    })
 };
 
 function deleteAuthor(call, callback) {
@@ -85,9 +91,9 @@ function deleteAuthor(call, callback) {
     .returning()
     .then(data => {
       if (data) {
-        callback(null, data)
+        callback(null, data);
       } else {
-        callback('Author does not exist')
+        callback('Author does not exist');
       }
     })
 };

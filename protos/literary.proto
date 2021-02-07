@@ -6,7 +6,7 @@ service AuthorService {
   rpc createAuthor (Author) returns (Author) {};
   rpc getAuthors (noParameter) returns (Authors) {};
   rpc getAuthor (AuthorName) returns (Author) {};
-  rpc updateAuthor (Author) returns (Author) {};
+  rpc updateAuthor (UpdateAuthor) returns (Author) {};
   rpc deleteAuthor (AuthorName) returns (Author) {};
 }
 
@@ -29,3 +29,7 @@ message AuthorName {
   string name = 1;
 }
 
+message UpdateAuthor {
+  string name = 1;
+  string updatedName = 2;
+}

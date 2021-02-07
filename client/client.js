@@ -18,6 +18,7 @@ const client = new literaryPackage.AuthorService(
 
 const id = process.argv[1];
 const name = process.argv[2];
+const updatedName = process.argv[3];
 
 function createAuthor () {
   const request = {
@@ -62,7 +63,20 @@ function getAuthor () {
 
 };
 
-function updateAuthor () {};
+function updateAuthor () {
+  const request = {
+    name: name,
+    updatedName: updatedName
+  }
+
+  client.updateAuthor(request, (error, response) => {
+    if (!error) {
+      console.log('Successfully updated author', response);
+    } else {
+      console.error(error);
+    }
+  })
+};
 
 function deleteAuthor () {
   const request = {
@@ -80,11 +94,11 @@ function deleteAuthor () {
 };
 
 function main() {
-  // // createAuthor();
-  // getAuthors();
-  // getAuthor();
-  // // updateAuthor();
-  deleteAuthor();
+  // createAuthor();
+  // // getAuthors();
+  // // getAuthor();
+   updateAuthor();
+  // deleteAuthor();
 }
 
 main();
