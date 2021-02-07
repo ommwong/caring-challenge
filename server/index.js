@@ -1,6 +1,11 @@
 const grpc = require('grpc');
 const protoLoader = require('@grpc/proto-loader');
 const { v4: uuidv4 } = require("uuid");
+
+const environment = process.env.ENV || 'development';
+const config = require('./knexfile')[environment];
+const knex = require('knex')(config);
+
 const path = require('path');
 const literaryProtoPath = path.join(__dirname, "..", "protos", "literary.proto");
 const literaryProtoDefinition = protoLoader.loadSync(literaryProtoPath, {
@@ -26,9 +31,17 @@ function createAuthor(call, callback) {
 };
 
 function getAuthors(call, callback) {
-  callback(null, {
-    authors: authors
-  })
+  // callback(null, {
+  //   authors: authors
+  // })
+
+  console.log('Received authors from db:');
+  knex('authors')
+    .then(data => {
+      callback(null, {
+        authors: data
+      })
+    })
 };
 
 function getAuthor(call, callback) {

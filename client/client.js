@@ -34,13 +34,23 @@ function createAuthor () {
 };
 
 function getAuthors () {
+  // const request = {};
+
+  // client.getAuthors(request, (error, response) => {
+  //   if (!error) {
+  //     console.log('Get authors from server ', response)
+  //   } else {
+  //     console.error(error)
+  //   }
+  // })
+
   const request = {};
 
   client.getAuthors(request, (error, response) => {
     if (!error) {
-      console.log('Get authors from server ', response)
+      console.log('Authors from db: ', response);
     } else {
-      console.error(error)
+      console.error(error);
     }
   })
 };
