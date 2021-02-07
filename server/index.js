@@ -43,15 +43,31 @@ function getAuthors(call, callback) {
 };
 
 function getAuthor(call, callback) {
-  let author = authors.find(author => author.id == call.request.id);
+  // let author = authors.find(author => author.id == call.request.id);
+
+  // if (author) {
+  //   callback(null, author);
+  // } else {
+  //   callback({
+  //     code: grpc.status.NOT_FOUND,
+  //     details: "Author not found"
+  //   })
+  // }
+
+  const author = {
+    name: call.request.name
+  }
 
   if (author) {
-    callback(null, author);
-  } else {
-    callback({
-      code: grpc.status.NOT_FOUND,
-      details: "Author not found"
-    })
+    knex('authors')
+      .where(author)
+      .then(data => {
+        if (data.length) {
+          callback(null, data[0]);
+        } else {
+          callback('The author does not exist');
+        }
+      })
   }
 };
 

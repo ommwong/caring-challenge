@@ -5,9 +5,9 @@ package literaryPackage;
 service AuthorService {
   rpc createAuthor (Author) returns (Author) {};
   rpc getAuthors (noParameter) returns (Authors) {};
-  rpc getAuthor (AuthorId) returns (Author) {};
+  rpc getAuthor (AuthorName) returns (Author) {};
   rpc updateAuthor (Author) returns (Author) {};
-  rpc deleteAuthor (AuthorId) returns (Author) {};
+  rpc deleteAuthor (AuthorName) returns (Author) {};
 }
 
 message noParameter {};
@@ -23,5 +23,9 @@ message Authors {
 
 message AuthorId {
   string id = 1;
+}
+
+message AuthorName {
+  string name = 1;
 }
 

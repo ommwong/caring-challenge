@@ -32,7 +32,6 @@ function createAuthor () {
       console.error(error);
     }
   })
-
 };
 
 function getAuthors () {
@@ -48,27 +47,28 @@ function getAuthors () {
 };
 
 function getAuthor () {
-  // const request = {
-  //   id: id
-  // };
+  const request = {
+    name: name
+  };
 
-  // client.getAuthor(request, (error, response) => {
-  //   if (!error) {
-  //     console.log("Get author by id: ", response);
-  //   } else {
-  //     console.error(error);
-  //   }
-  // })
+  client.getAuthor(request, (error, response) => {
+    if (!error) {
+      console.log('Here is the author: ', response);
+    } else {
+      console.error(error);
+      console.log('Author does not exist!')
+    }
+  });
 
 };
 
 function updateAuthor () {};
 
 function main() {
-  createAuthor();
-  getAuthors();
+  // // createAuthor();
+  // getAuthors();
   getAuthor();
-  updateAuthor();
+  // // updateAuthor();
 }
 
 main();
