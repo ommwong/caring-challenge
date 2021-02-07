@@ -46,17 +46,17 @@ function getAuthors () {
 };
 
 function getAuthor () {
-  const request = {
-    id: id
-  };
+  // const request = {
+  //   id: id
+  // };
 
-  client.getAuthor(request, (error, response) => {
-    if (!error) {
-      console.log("Get author by id: ", response);
-    } else {
-      console.error(error);
-    }
-  })
+  // client.getAuthor(request, (error, response) => {
+  //   if (!error) {
+  //     console.log("Get author by id: ", response);
+  //   } else {
+  //     console.error(error);
+  //   }
+  // })
 
 };
 
