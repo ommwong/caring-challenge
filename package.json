@@ -1,11 +1,25 @@
 {
-  "name": "caring-challenge",
+  "name": "Caring-Challenge",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ommwong/caring-challenge.git"
+  },
+  "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ommwong/caring-challenge/issues"
+  },
+  "homepage": "https://github.com/ommwong/caring-challenge#readme",
+  "dependencies": {
+    "@grpc/proto-loader": "^0.5.6",
+    "grpc": "^1.24.4",
+    "proto-loader": "^0.2.0"
+  }
 }

@@ -1,43 +1,46 @@
-const grpc = require('grpc'); //grpc library
-const protoLoader = require('@grpc/proto-loader'); //compiles proto into JS, etc.
+const grpc = require('grpc');
+const protoLoader = require('@grpc/proto-loader');
+const path = require('path');
+const literaryProtoPath = path.join(__dirname, "..", "protos", "literary.proto");
+const literaryProtoDefinition = protoLoader.loadSync(literaryProtoPath, {
+  keepCase: true,
+  longs: String,
+  enums: String,
+  defaults: true,
+  oneofs: true
+});
+const literaryPackage = grpc.loadPackageDefinition(literaryProtoDefinition).literaryPackage;
 
-const PROTO_PATH = "./literary.proto";
+//call => TCP connection
+//callback => sending info back to server
+const authors = []
 
-const packageDefinition = protoLoader.loadSync(PROTO_PATH, {});
+function createAuthor(call, callback) {
+  const author = {
+    id: authors.length + 1,
+    first_name: call.request.first_name,
+    last_name: call.request.last_name
+  }
+  authors.push(author);
 
-//load packageDefinition into grpc object
-const grpcObject = grpc.loadPackageDefinition(packageDefinition);
-const literaryPackage = grpcObject.literaryPackage;
+  callback(null, author);
+}
+
+function getAuthors(call, callback) {
+  callback(null, {
+    "authors": authors
+  })
+}
 
 const server = new grpc.Server();
+server.bind("localhost:50051", grpc.ServerCredentials.createInsecure());
 
-//call = {}; not an actual request, a whole call
-//callback = sends response to client
-const createAuthor = (call, callback) => {
-  console.log(call)
-};
-
-const getAuthors = (call, callback) => {
-
-};
-
-const editAuthor = (call, callback) => {
-
-};
-
-const deleteAuthor = (call, callback) => {
-
-};
-
-//uses http2 as transport mechanism; needs credentials; bypasses credentials with createInsecure
-//communicate service with server
+//server needs to be told about service
+//need service {}
 server.addService(literaryPackage.AuthorService.service, {
-  "createAuthor": createAuthor,
-  "getAuthors": getAuthors,
-  "editAuthor": editAuthor,
-  "deleteAuthor": deleteAuthor
-});
+  createAuthor: createAuthor,
+  getAuthors: getAuthors
+})
 
-server.bind('localhost:4000', grpc.ServerCredentials.createInsecure());
-console.log("Server running at http://localhost:4000");
 server.start();
+console.log("Server Running at http://localhost:50051");

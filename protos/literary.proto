@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+package literaryPackage;
+
+//multiple services here =>
+service AuthorService {
+  rpc createAuthor (Author) returns (Author) {};
+  rpc getAuthors (noParameter) returns (Authors) {};
+}
+
+message noParameter {};
+
+message Author {
+  int32 id = 1;
+  string first_name = 2;
+  string last_name = 3;
+}
+
+message Authors {
+  repeated Author authors = 1;
+}
