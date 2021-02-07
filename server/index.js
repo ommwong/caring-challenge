@@ -1,5 +1,6 @@
 const grpc = require('grpc');
 const protoLoader = require('@grpc/proto-loader');
+const { v4: uuidv4 } = require("uuid");
 const path = require('path');
 const literaryProtoPath = path.join(__dirname, "..", "protos", "literary.proto");
 const literaryProtoDefinition = protoLoader.loadSync(literaryProtoPath, {
@@ -11,26 +12,53 @@ const literaryProtoDefinition = protoLoader.loadSync(literaryProtoPath, {
 });
 const literaryPackage = grpc.loadPackageDefinition(literaryProtoDefinition).literaryPackage;
 
-//call => TCP connection
-//callback => sending info back to server
 const authors = []
 
+//constructing API here =>
 function createAuthor(call, callback) {
   const author = {
-    id: authors.length + 1,
-    first_name: call.request.first_name,
-    last_name: call.request.last_name
+    id: uuidv4(),
+    name: call.request.name
   }
   authors.push(author);
 
   callback(null, author);
-}
+};
 
 function getAuthors(call, callback) {
   callback(null, {
-    "authors": authors
+    authors: authors
   })
-}
+};
+
+function getAuthor(call, callback) {
+  let author = authors.find(author => author.id == call.request.id);
+
+  if (author) {
+    callback(null, author);
+  } else {
+    callback({
+      code: grpc.status.NOT_FOUND,
+      details: "Author not found"
+    })
+  }
+};
+
+function updateAuthor(call, callback) {
+  let author = authors.find(author => author.id == call.request.id);
+
+  if (author) {
+    author.name = call.request.name;
+    callback(null, author);
+  } else {
+    callback({
+      code: grpc.status.NOT_FOUND,
+      details: "Author not found"
+    })
+  }
+};
+
+function deleteAuthor(call, callback) {};
 
 const server = new grpc.Server();
 server.bind("localhost:50051", grpc.ServerCredentials.createInsecure());
@@ -39,7 +67,10 @@ server.bind("localhost:50051", grpc.ServerCredentials.createInsecure());
 //need service {}
 server.addService(literaryPackage.AuthorService.service, {
   createAuthor: createAuthor,
-  getAuthors: getAuthors
+  getAuthors: getAuthors,
+  getAuthor: getAuthor,
+  updateAuthor: updateAuthor,
+  deleteAuthor: deleteAuthor
 })
 
 server.start();
