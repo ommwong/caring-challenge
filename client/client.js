@@ -64,11 +64,27 @@ function getAuthor () {
 
 function updateAuthor () {};
 
+function deleteAuthor () {
+  const request = {
+    name: name
+  }
+
+  client.deleteAuthor(request, (error, response) => {
+    if (!error) {
+      console.log('Successfully deleted author', response);
+    } else {
+      console.error(error);
+      console.log('Author does not exist');
+    }
+  })
+};
+
 function main() {
   // // createAuthor();
   // getAuthors();
-  getAuthor();
+  // getAuthor();
   // // updateAuthor();
+  deleteAuthor();
 }
 
 main();

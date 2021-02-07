@@ -43,17 +43,6 @@ function getAuthors(call, callback) {
 };
 
 function getAuthor(call, callback) {
-  // let author = authors.find(author => author.id == call.request.id);
-
-  // if (author) {
-  //   callback(null, author);
-  // } else {
-  //   callback({
-  //     code: grpc.status.NOT_FOUND,
-  //     details: "Author not found"
-  //   })
-  // }
-
   const author = {
     name: call.request.name
   }
@@ -85,7 +74,23 @@ function updateAuthor(call, callback) {
   }
 };
 
-function deleteAuthor(call, callback) {};
+function deleteAuthor(call, callback) {
+  const author = {
+    name: call.request.name
+  };
+
+  knex('authors')
+    .where(author)
+    .delete()
+    .returning()
+    .then(data => {
+      if (data) {
+        callback(null, data)
+      } else {
+        callback('Author does not exist')
+      }
+    })
+};
 
 const server = new grpc.Server();
 server.bind("localhost:50051", grpc.ServerCredentials.createInsecure());
