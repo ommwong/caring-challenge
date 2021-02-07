@@ -11,8 +11,9 @@ const literaryProtoDefinition = protoLoader.loadSync(literaryProtoPath, {
 });
 const literaryPackage = grpc.loadPackageDefinition(literaryProtoDefinition).literaryPackage;
 
-const client = new literaryPackage.AuthorService("localhost:50051",
-        grpc.credentials.createInsecure()
+const client = new literaryPackage.AuthorService(
+  "localhost:50051",
+  grpc.credentials.createInsecure()
 )
 
 const id = process.argv[1];
@@ -20,30 +21,21 @@ const name = process.argv[2];
 
 function createAuthor () {
   const request = {
-    // id: -1,
+    id: id,
     name: name
-  }
+  };
 
   client.createAuthor(request, (error, response) => {
     if (!error) {
-      console.log('createAuthor response: ', response)
+      console.log('Author created successfully: ', response)
     } else {
-      console.error(error)
+      console.error(error);
     }
   })
+
 };
 
 function getAuthors () {
-  // const request = {};
-
-  // client.getAuthors(request, (error, response) => {
-  //   if (!error) {
-  //     console.log('Get authors from server ', response)
-  //   } else {
-  //     console.error(error)
-  //   }
-  // })
-
   const request = {};
 
   client.getAuthors(request, (error, response) => {

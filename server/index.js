@@ -25,17 +25,15 @@ function createAuthor(call, callback) {
     id: uuidv4(),
     name: call.request.name
   }
-  authors.push(author);
 
-  callback(null, author);
+  knex('authors')
+    .insert(author)
+    .then(() => {
+      callback(null, author)
+    })
 };
 
 function getAuthors(call, callback) {
-  // callback(null, {
-  //   authors: authors
-  // })
-
-  console.log('Received authors from db:');
   knex('authors')
     .then(data => {
       callback(null, {
