@@ -8,7 +8,7 @@ exports.seed = function(knex) {
       return knex('authors').insert([
         {id: uuidv4(), name: "JK Rowling"},
         {id: uuidv4(), name: "Sally Rooney"},
-        {id: uuidv4(), name: "Barack Obama"},
+        {id: uuidv4(), name: "Michelle Obama"},
         {id: uuidv4(), name: "Mark Twain"},
         {id: uuidv4(), name: "Jane Austen"},
         {id: uuidv4(), name: "John Grisham"},
