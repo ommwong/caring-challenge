@@ -21,10 +21,19 @@ const client = new literaryPackage.LiteraryService(
 // const name = process.argv[2];
 // const updatedName = process.argv[3];
 const title = process.argv[2];
-const author = process.argv[3];
-const isbn = process.argv[4];
-const bookFormat = process.argv[5];
-const pages = process.argv[6];
+const updatedTitle = process.argv[3];
+
+const author = process.argv[4];
+const updatedAuthor = process.argv[5];
+
+const isbn = process.argv[6];
+const updatedIsbn = process.argv[7];
+
+const bookFormat = process.argv[8];
+const updatedBookFormat = process.argv[9];
+
+const pages = process.argv[10];
+const updatedPages = process.argv[11];
 
 function createAuthor () {
   const request = {
@@ -144,6 +153,42 @@ function getBooks () {
   })
 };
 
+function updateBook () {
+  const request = {
+    title: title,
+    updatedTitle: updatedTitle,
+    author: author,
+    updatedAuthor: updatedAuthor,
+    isbn: isbn,
+    format: bookFormat,
+    updatedBookFormat: updatedBookFormat,
+    pages: pages
+  };
+
+  client.updateBook(request, (error, response) => {
+    if (!error) {
+      console.log('Successfully updated book', response);
+    } else {
+      console.error(error);
+    }
+  })
+};
+
+function deleteBook () {
+  const request = {
+    title: title
+  };
+
+  client.deleteBook(request, (error, response) => {
+    if (!error) {
+      console.log('Successfully deleted book', response);
+    } else {
+      console.error(error);
+      console.log('Book does not exist');
+    }
+  })
+};
+
 function main() {
   // createAuthor();
   // // getAuthors();
@@ -152,7 +197,9 @@ function main() {
   // deleteAuthor();
   // createBook();
   // getBook();
-  getBooks();
+  // getBooks();
+  // updateBook();
+  deleteBook();
 }
 
 main();

@@ -142,8 +142,47 @@ function getBook (call, callback) {
 };
 
 
-function updateBook (call, callback) {};
-function deleteBook (call, callback) {};
+function updateBook (call, callback) {
+  const book = {
+    title: call.request.title
+  };
+
+  knex('books')
+    .where(book)
+    .update({
+      title: call.request.updatedTitle,
+      author: call.request.updatedAuthor,
+      isbn: call.request.updatedIsbn,
+      format: call.request.updatedBookFormat,
+      pages: call.request.updatedPages
+    })
+    .returning()
+    .then(data => {
+      if (data) {
+        callback(null, data)
+      } else {
+        callback('Book does not exist')
+      }
+    })
+};
+
+function deleteBook (call, callback) {
+  const book = {
+    title: call.request.title
+  };
+
+  knex('books')
+    .where(book)
+    .delete()
+    .returning()
+    .then(data => {
+      if (data) {
+        callback(null, data);
+      } else {
+        callback('Book does not exist');
+      }
+    })
+};
 
 const server = new grpc.Server();
 server.bind("localhost:50051", grpc.ServerCredentials.createInsecure());
