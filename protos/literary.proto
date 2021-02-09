@@ -14,6 +14,12 @@ service LiteraryService {
   rpc getBook (BookTitle) returns (Book) {};
   rpc updateBook (UpdateBook) returns (Book) {};
   rpc deleteBook (BookTitle) returns (Book) {};
+
+  rpc createAward (Award) returns (Award) {};
+  rpc getAwards (noParameter) returns (Awards) {};
+  rpc getAward (AwardName) returns (Award) {};
+  rpc updateAward (UpdateAward) returns (Award) {};
+  rpc deleteAward (AwardName) returns (Award) {};
 }
 
 message noParameter {};
@@ -62,4 +68,30 @@ message UpdateBook {
   string updatedBookFormat = 8;
   int32 pages = 9;
   int32 updatedPages = 10;
+}
+
+message Award {
+  string award = 1;
+  int32 author = 2;
+  int32 book = 3;
+  int32 year = 4;
+}
+
+message Awards {
+  repeated Award awards = 1;
+}
+
+message AwardName {
+  string award = 1;
+}
+
+message UpdateAward {
+  string award = 1;
+  string updatedAward = 2;
+  int32 author = 3;
+  int32 updatedAuthor = 4;
+  int32 book = 5;
+  int32 updatedBook= 6;
+  int32 year = 7;
+  int32 updatedYear = 8;
 }
