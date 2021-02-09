@@ -16,8 +16,13 @@ const client = new literaryPackage.LiteraryService(
   grpc.credentials.createInsecure()
 )
 
-const award = process.argv[2];
-const year = process.argv[3];
+const authorClient = new literaryPackage.AuthorService(
+  "localhost:50051",
+  grpc.credentials.createInsecure()
+)
+
+const name = process.argv[2];
+// const year = process.argv[3];
 // const updatedAward = process.argv[4];
 // const updatedAuthor = process.argv[5];
 // const updatedBook = process.argv[6];
@@ -29,7 +34,7 @@ function createAuthor () {
     name: name
   };
 
-  client.createAuthor(request, (error, response) => {
+  authorClient.createAuthor(request, (error, response) => {
     if (!error) {
       console.log('Author created successfully: ', response)
     } else {
@@ -41,7 +46,7 @@ function createAuthor () {
 function getAuthors () {
   const request = {};
 
-  client.getAuthors(request, (error, response) => {
+  authorClient.getAuthors(request, (error, response) => {
     if (!error) {
       console.log('Authors from db: ', response);
     } else {
@@ -55,7 +60,7 @@ function getAuthor () {
     name: name
   };
 
-  client.getAuthor(request, (error, response) => {
+  authorClient.getAuthor(request, (error, response) => {
     if (!error) {
       console.log('Here is the author: ', response);
     } else {
@@ -72,7 +77,7 @@ function updateAuthor () {
     updatedName: updatedName
   };
 
-  client.updateAuthor(request, (error, response) => {
+  authorClient.updateAuthor(request, (error, response) => {
     if (!error) {
       console.log('Successfully updated author', response);
     } else {
@@ -86,7 +91,7 @@ function deleteAuthor () {
     name: name
   };
 
-  client.deleteAuthor(request, (error, response) => {
+  authorClient.deleteAuthor(request, (error, response) => {
     if (!error) {
       console.log('Successfully deleted author', response);
     } else {
@@ -258,8 +263,8 @@ function deleteAward () {
 
 function main() {
   // createAuthor();
-  // // getAuthors();
-  // // getAuthor();
+  // getAuthors();
+  getAuthor();
   //  updateAuthor();
   // deleteAuthor();
   // createBook();
@@ -271,7 +276,7 @@ function main() {
   // getAwards();
   // getAward()
   // updateAward()
-  deleteAward()
+  // deleteAward()
 }
 
 main();
