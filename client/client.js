@@ -17,12 +17,14 @@ const client = new literaryPackage.LiteraryService(
   grpc.credentials.createInsecure()
 )
 
-const title = process.argv[2];
-const updatedTitle = process.argv[3];
-const updatedAuthor = process.argv[4];
-const updatedIsbn = process.argv[5];
-const updatedBookFormat = process.argv[6];
-const updatedPages = process.argv[7];
+const name = process.argv[2];
+
+// const title = process.argv[2];
+// const updatedTitle = process.argv[3];
+// const updatedAuthor = process.argv[4];
+// const updatedIsbn = process.argv[5];
+// const updatedBookFormat = process.argv[6];
+// const updatedPages = process.argv[7];
 
 function createAuthor () {
   const request = {
@@ -177,7 +179,7 @@ function deleteBook () {
 };
 
 function main() {
-  // createAuthor();
+  createAuthor();
   // // getAuthors();
   // // getAuthor();
   //  updateAuthor();
@@ -185,7 +187,7 @@ function main() {
   // createBook();
   // getBook();
   // getBooks();
-  updateBook();
+  // updateBook();
   // deleteBook();
 }
 

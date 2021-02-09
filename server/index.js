@@ -1,6 +1,6 @@
 const grpc = require('grpc');
 const protoLoader = require('@grpc/proto-loader');
-// const { v4: uuidv4 } = require("uuid");
+const authorAPI = require('./APIs/authorAPI');
 
 const environment = process.env.ENV || 'development';
 const config = require('./knexfile')[environment];
@@ -16,87 +16,6 @@ const literaryProtoDefinition = protoLoader.loadSync(literaryProtoPath, {
   oneofs: true
 });
 const literaryPackage = grpc.loadPackageDefinition(literaryProtoDefinition).literaryPackage;
-
-const authors = []
-
-//constructing API here =>
-function createAuthor(call, callback) {
-  const author = {
-    // id: uuidv4(),
-    name: call.request.name
-  }
-
-  knex('authors')
-    .insert(author)
-    .then(() => {
-      callback(null, author)
-    })
-};
-
-function getAuthors(call, callback) {
-  knex('authors')
-    .then(data => {
-      callback(null, {
-        authors: data
-      })
-    })
-};
-
-function getAuthor(call, callback) {
-  const author = {
-    name: call.request.name
-  }
-
-  if (author) {
-    knex('authors')
-      .where(author)
-      .then(data => {
-        if (data.length) {
-          callback(null, data[0]);
-        } else {
-          callback('The author does not exist');
-        }
-      })
-  }
-};
-
-function updateAuthor(call, callback) {
-  const author = {
-    name: call.request.name
-  };
-
-  knex('authors')
-    .where(author)
-    .update({
-      name: call.request.updatedName
-    })
-    .returning()
-    .then(data => {
-      if (data) {
-        callback(null, data)
-      } else {
-        callback('Author does not exist')
-      }
-    })
-};
-
-function deleteAuthor(call, callback) {
-  const author = {
-    name: call.request.name
-  };
-
-  knex('authors')
-    .where(author)
-    .delete()
-    .returning()
-    .then(data => {
-      if (data) {
-        callback(null, data);
-      } else {
-        callback('Author does not exist');
-      }
-    })
-};
 
 function createBook (call, callback) {
   const book = {
@@ -190,11 +109,11 @@ server.bind("localhost:50051", grpc.ServerCredentials.createInsecure());
 //server needs to be told about service
 //need service {}
 server.addService(literaryPackage.LiteraryService.service, {
-  createAuthor: createAuthor,
-  getAuthors: getAuthors,
-  getAuthor: getAuthor,
-  updateAuthor: updateAuthor,
-  deleteAuthor: deleteAuthor,
+  createAuthor: authorAPI.createAuthor,
+  getAuthors: authorAPI.getAuthors,
+  getAuthor: authorAPI.getAuthor,
+  updateAuthor: authorAPI.updateAuthor,
+  deleteAuthor: authorAPI.deleteAuthor,
   createBook: createBook,
   getBooks: getBooks,
   getBook: getBook,
