@@ -2,28 +2,28 @@ syntax = "proto3";
 
 package literaryPackage;
 
-service LiteraryService {
-
-
-  rpc createBook (Book) returns (Book) {};
-  rpc getBooks (noParameter) returns (Books) {};
-  rpc getBook (BookTitle) returns (Book) {};
-  rpc updateBook (UpdateBook) returns (Book) {};
-  rpc deleteBook (BookTitle) returns (Book) {};
-
-  rpc createAward (Award) returns (Award) {};
-  rpc getAwards (noParameter) returns (Awards) {};
-  rpc getAward (AwardName) returns (Award) {};
-  rpc updateAward (UpdateAward) returns (Award) {};
-  rpc deleteAward (AwardName) returns (Award) {};
-}
-
 service AuthorService {
   rpc createAuthor (Author) returns (Author) {};
   rpc getAuthors (noParameter) returns (Authors) {};
   rpc getAuthor (AuthorName) returns (Author) {};
   rpc updateAuthor (UpdateAuthor) returns (Author) {};
   rpc deleteAuthor (AuthorName) returns (Author) {};
+}
+
+service BookService {
+  rpc createBook (Book) returns (Book) {};
+  rpc getBooks (noParameter) returns (Books) {};
+  rpc getBook (BookTitle) returns (Book) {};
+  rpc updateBook (UpdateBook) returns (Book) {};
+  rpc deleteBook (BookTitle) returns (Book) {};
+}
+
+service AwardService {
+  rpc createAward (Award) returns (Award) {};
+  rpc getAwards (noParameter) returns (Awards) {};
+  rpc getAward (AwardName) returns (Award) {};
+  rpc updateAward (UpdateAward) returns (Award) {};
+  rpc deleteAward (AwardName) returns (Award) {};
 }
 
 message noParameter {};
