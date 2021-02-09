@@ -17,9 +17,11 @@ const client = new literaryPackage.LiteraryService(
 )
 
 const award = process.argv[2];
-const author = process.argv[3];
-const book = process.argv[4];
-const year = process.argv[5];
+const year = process.argv[3];
+
+// const author = process.argv[3];
+// const book = process.argv[4];
+// const year = process.argv[5];
 
 // const name = process.argv[2];
 
@@ -217,6 +219,22 @@ function getAwards () {
   })
 };
 
+function getAward () {
+  const request = {
+    award: award,
+    year: year
+  };
+
+  client.getAward(request, (error, response) => {
+    if (!error) {
+      console.log('Here is the award:', response);
+    } else {
+      console.error(error);
+      console.log('Award is not found!');
+    }
+  })
+};
+
 function main() {
   // createAuthor();
   // // getAuthors();
@@ -229,7 +247,8 @@ function main() {
   // updateBook();
   // deleteBook();
   // createAward();
-  getAwards();
+  // getAwards();
+  getAward()
 }
 
 main();

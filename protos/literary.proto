@@ -83,6 +83,7 @@ message Awards {
 
 message AwardName {
   string award = 1;
+  int32 year = 2;
 }
 
 message UpdateAward {

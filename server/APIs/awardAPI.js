@@ -29,7 +29,24 @@ const getAwards = (call, callback) => {
 };
 
 const getAward = (call, callback) => {
+  const { award, year } = call.request
 
+  const existingAward = {
+    award: award,
+    year: year
+  }
+
+  if (existingAward) {
+    knex('awards')
+      .where(existingAward)
+      .then(data => {
+        if (data.length) {
+          callback(null, data[0]);
+        } else {
+          callback('Award does not exist');
+        }
+      })
+  }
 };
 
 const updateAward = (call, callback) => {
