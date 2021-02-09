@@ -102,7 +102,11 @@ message UpdateAward {
   int32 updatedYear = 8;
 }
 
-message AuthorsBooksAwards {
+message AuthorsBooks {
   string name = 1;
   string title = 2;
+}
+
+message AuthorsBooksAwards {
+  repeated AuthorsBooks result = 1;
 }

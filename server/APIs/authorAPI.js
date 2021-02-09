@@ -86,7 +86,9 @@ const getAuthorsBooksAwards = (call, callback) => {
     .then(data => {
       if (data) {
         console.log(data)
-        callback(null, data);
+        callback(null, {
+          result: data
+        });
       } else {
         callback('Data does not exist')
       }
