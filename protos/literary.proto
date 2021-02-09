@@ -38,7 +38,7 @@ message UpdateAuthor {
 message Book {
   string title = 1;
   int32 author = 2;
-  string ISBN = 3;
+  string isbn = 3;
   string format = 4;
   int32 pages = 5;
 }
@@ -56,7 +56,7 @@ message UpdateBook {
   string updatedTitle = 2;
   int32 author = 3;
   int32 updatedAuthor = 4;
-  string ISBN = 5;
+  string isbn = 5;
   string updatedISBN = 6;
   string format = 7;
   string updatedFormat = 8;

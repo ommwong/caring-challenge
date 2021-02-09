@@ -21,10 +21,10 @@ const client = new literaryPackage.LiteraryService(
 // const name = process.argv[2];
 // const updatedName = process.argv[3];
 const title = process.argv[2];
-// const author = process.argv[3];
-// const isbn = process.argv[4];
-// const bookFormat = process.argv[5];
-// const pages = process.argv[6];
+const author = process.argv[3];
+const isbn = process.argv[4];
+const bookFormat = process.argv[5];
+const pages = process.argv[6];
 
 function createAuthor () {
   const request = {
@@ -102,7 +102,7 @@ function createBook () {
   const request = {
     title: title,
     author: author,
-    ISBN: isbn,
+    isbn: isbn,
     format: bookFormat,
     pages: pages
   };
@@ -138,8 +138,8 @@ function main() {
   // // getAuthor();
   //  updateAuthor();
   // deleteAuthor();
-  // createBook();
-  getBook();
+  createBook();
+  // getBook();
 }
 
 main();

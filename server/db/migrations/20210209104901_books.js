@@ -3,7 +3,7 @@ exports.up = function(knex) {
     table.increments('book_id');
     table.text('title').notNullable();
     table.integer('author').notNullable().references('author_id').inTable('authors');
-    table.string('ISBN').notNullable();
+    table.string('isbn').notNullable();
     table.string('format').notNullable();
     table.integer('pages').notNullable();
   })

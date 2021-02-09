@@ -102,7 +102,7 @@ function createBook (call, callback) {
   const book = {
     title: call.request.title,
     author: call.request.author,
-    ISBN: call.request.isbn,
+    isbn: call.request.isbn,
     format: call.request.format,
     pages: call.request.pages,
   }
