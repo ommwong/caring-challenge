@@ -98,6 +98,12 @@ function deleteAuthor(call, callback) {
     })
 };
 
+function createBook (call, callback) {};
+function getBooks (call, callback) {};
+function getBook (call, callback) {};
+function updateBook (call, callback) {};
+function deleteBook (call, callback) {};
+
 const server = new grpc.Server();
 server.bind("localhost:50051", grpc.ServerCredentials.createInsecure());
 
@@ -108,7 +114,12 @@ server.addService(literaryPackage.LiteraryService.service, {
   getAuthors: getAuthors,
   getAuthor: getAuthor,
   updateAuthor: updateAuthor,
-  deleteAuthor: deleteAuthor
+  deleteAuthor: deleteAuthor,
+  createBook: createBook,
+  getBooks: getBooks,
+  getBook: getBook,
+  updateBook: updateBook,
+  deleteBook: deleteBook
 })
 
 server.start();
