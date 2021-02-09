@@ -18,10 +18,10 @@ const client = new literaryPackage.LiteraryService(
 
 const award = process.argv[2];
 const year = process.argv[3];
-const updatedAward = process.argv[4];
-const updatedAuthor = process.argv[5];
-const updatedBook = process.argv[6];
-const updatedYear = process.argv[7];
+// const updatedAward = process.argv[4];
+// const updatedAuthor = process.argv[5];
+// const updatedBook = process.argv[6];
+// const updatedYear = process.argv[7];
 
 
 function createAuthor () {
@@ -240,6 +240,21 @@ function updateAward () {
   })
 };
 
+function deleteAward () {
+  const request = {
+    award: award,
+    year: year
+  };
+
+  client.deleteAward(request, (error, response) => {
+    if (!error) {
+      console.log('Successfully deleted award', response);
+    } else {
+      console.error(error);
+      console.log('award does not exist');
+    }
+  })
+};
 
 function main() {
   // createAuthor();
@@ -255,7 +270,8 @@ function main() {
   // createAward();
   // getAwards();
   // getAward()
-  updateAward()
+  // updateAward()
+  deleteAward()
 }
 
 main();
