@@ -4,7 +4,6 @@ const knex = require('knex')(config);
 
 const createAuthor = (call, callback) => {
   const author = {
-    // id: uuidv4(),
     name: call.request.name
   }
 
@@ -80,10 +79,25 @@ const deleteAuthor = (call, callback) => {
     })
 };
 
+const getAuthorsBooksAwards = (call, callback) => {
+  knex('authors')
+    .join('books', 'authors.author_id', '=', 'books.author')
+    .select('authors.name', 'books.title')
+    .then(data => {
+      if (data) {
+        console.log(data)
+        callback(null, data);
+      } else {
+        callback('Data does not exist')
+      }
+    })
+}
+
 module.exports = {
   createAuthor,
   getAuthors,
   getAuthor,
   updateAuthor,
-  deleteAuthor
+  deleteAuthor,
+  getAuthorsBooksAwards
 }

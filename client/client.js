@@ -11,11 +11,6 @@ const literaryProtoDefinition = protoLoader.loadSync(literaryProtoPath, {
 });
 const literaryPackage = grpc.loadPackageDefinition(literaryProtoDefinition).literaryPackage;
 
-// const client = new literaryPackage.LiteraryService(
-//   "localhost:50051",
-//   grpc.credentials.createInsecure()
-// )
-
 const authorClient = new literaryPackage.AuthorService(
   "localhost:50051",
   grpc.credentials.createInsecure()
@@ -31,13 +26,12 @@ const awardClient = new literaryPackage.AwardService(
   grpc.credentials.createInsecure()
 )
 
-const award = process.argv[2];
-const year = process.argv[3];
-const updatedAward = process.argv[4];
-const updatedAuthor = process.argv[5];
-const updatedBook = process.argv[6];
-const updatedYear = process.argv[7];
-
+// const award = process.argv[2];
+// const year = process.argv[3];
+// const updatedAward = process.argv[4];
+// const updatedAuthor = process.argv[5];
+// const updatedBook = process.argv[6];
+// const updatedYear = process.argv[7];
 
 function createAuthor () {
   const request = {
@@ -266,12 +260,25 @@ function deleteAward () {
       console.log('Successfully deleted award', response);
     } else {
       console.error(error);
-      console.log('award does not exist');
+      console.log('Award does not exist');
     }
   })
 };
 
-function main() {
+function getAuthorsBooksAwards () {
+  const request = {};
+
+  authorClient.getAuthorsBooksAwards(request, (error, response) => {
+    if (!error) {
+      console.log('Authors with books:', response);
+    } else {
+      console.error(error);
+      console.log('Oops');
+    }
+  })
+}
+
+(function () {
   // createAuthor();
   // getAuthors();
   // getAuthor();
@@ -285,8 +292,8 @@ function main() {
   // createAward();
   // getAwards();
   // getAward()
-  updateAward()
+  // updateAward()
   // deleteAward()
-}
+  getAuthorsBooksAwards()
+})();
 
-main();

@@ -10,7 +10,13 @@ exports.seed = function(knex) {
         {name: "Mark Twain"},
         {name: "Jane Austen"},
         {name: "John Grisham"},
-        {name: "Cormac McCarthy"}
+        {name: "Cormac McCarthy"},
+        {name: "John Boyne"},
+        {name: "John Green"},
+        {name: "Barack Obama"},
+        {name: "Jonathan Franzen"},
+        {name: "Kurt Vonnegut"},
+        {name: "Margaret Atwood"}
       ]);
     });
 };

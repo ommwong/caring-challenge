@@ -25,6 +25,7 @@ server.addService(literaryPackage.AuthorService.service, {
   getAuthor: authorAPI.getAuthor,
   updateAuthor: authorAPI.updateAuthor,
   deleteAuthor: authorAPI.deleteAuthor,
+  getAuthorsBooksAwards: authorAPI.getAuthorsBooksAwards
 })
 
 server.addService(literaryPackage.BookService.service, {
