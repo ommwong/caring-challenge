@@ -114,7 +114,14 @@ function createBook (call, callback) {
     })
 };
 
-function getBooks (call, callback) {};
+function getBooks (call, callback) {
+  knex('books')
+    .then(data => {
+      callback(null, {
+        books: data
+      })
+    })
+};
 
 function getBook (call, callback) {
   const book = {

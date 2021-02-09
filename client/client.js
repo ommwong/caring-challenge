@@ -132,14 +132,27 @@ function getBook () {
   })
 };
 
+function getBooks () {
+  const request = {};
+
+  client.getBooks(request, (error, response) => {
+    if (!error) {
+      console.log('Books from db: ', response);
+    } else {
+      console.error(error);
+    }
+  })
+};
+
 function main() {
   // createAuthor();
   // // getAuthors();
   // // getAuthor();
   //  updateAuthor();
   // deleteAuthor();
-  createBook();
+  // createBook();
   // getBook();
+  getBooks();
 }
 
 main();
