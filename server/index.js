@@ -103,7 +103,7 @@ server.bind("localhost:50051", grpc.ServerCredentials.createInsecure());
 
 //server needs to be told about service
 //need service {}
-server.addService(literaryPackage.AuthorService.service, {
+server.addService(literaryPackage.LiteraryService.service, {
   createAuthor: createAuthor,
   getAuthors: getAuthors,
   getAuthor: getAuthor,
