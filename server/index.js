@@ -98,9 +98,43 @@ function deleteAuthor(call, callback) {
     })
 };
 
-function createBook (call, callback) {};
+function createBook (call, callback) {
+  const book = {
+    title: call.request.title,
+    author: call.request.author,
+    ISBN: call.request.isbn,
+    format: call.request.format,
+    pages: call.request.pages,
+  }
+
+  knex('books')
+    .insert(book)
+    .then(() => {
+      callback(null, book)
+    })
+};
+
 function getBooks (call, callback) {};
-function getBook (call, callback) {};
+
+function getBook (call, callback) {
+  const book = {
+    title: call.request.title
+  }
+
+  if (book) {
+    knex('books')
+      .where(book)
+      .then(data => {
+        if (data.length) {
+          callback(null, data[0]);
+        } else {
+          callback('The book does not exist');
+        }
+      })
+  }
+};
+
+
 function updateBook (call, callback) {};
 function deleteBook (call, callback) {};
 

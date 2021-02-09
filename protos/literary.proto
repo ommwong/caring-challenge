@@ -2,12 +2,18 @@ syntax = "proto3";
 
 package literaryPackage;
 
-service AuthorService {
+service LiteraryService {
   rpc createAuthor (Author) returns (Author) {};
   rpc getAuthors (noParameter) returns (Authors) {};
   rpc getAuthor (AuthorName) returns (Author) {};
   rpc updateAuthor (UpdateAuthor) returns (Author) {};
   rpc deleteAuthor (AuthorName) returns (Author) {};
+
+  rpc createBook (Book) returns (Book) {};
+  rpc getBooks (noParameter) returns (Books) {};
+  rpc getBook (BookTitle) returns (Book) {};
+  rpc updateBook (UpdateBook) returns (Book) {};
+  rpc deleteBook (BookTitle) returns (Book) {};
 }
 
 message noParameter {};
@@ -27,4 +33,33 @@ message AuthorName {
 message UpdateAuthor {
   string name = 1;
   string updatedName = 2;
+}
+
+message Book {
+  string title = 1;
+  int32 author = 2;
+  string ISBN = 3;
+  string format = 4;
+  int32 pages = 5;
+}
+
+message Books {
+  repeated Book books = 1;
+}
+
+message BookTitle {
+  string title = 1;
+}
+
+message UpdateBook {
+  string title = 1;
+  string updatedTitle = 2;
+  int32 author = 3;
+  int32 updatedAuthor = 4;
+  string ISBN = 5;
+  string updatedISBN = 6;
+  string format = 7;
+  string updatedFormat = 8;
+  int32 pages = 9;
+  int32 updatedPages = 10;
 }
