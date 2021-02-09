@@ -16,13 +16,13 @@ const client = new literaryPackage.AuthorService(
   grpc.credentials.createInsecure()
 )
 
-const id = process.argv[1];
+// const id = process.argv[1];
 const name = process.argv[2];
 const updatedName = process.argv[3];
 
 function createAuthor () {
   const request = {
-    id: id,
+    // id: id,
     name: name
   };
 
@@ -67,7 +67,7 @@ function updateAuthor () {
   const request = {
     name: name,
     updatedName: updatedName
-  }
+  };
 
   client.updateAuthor(request, (error, response) => {
     if (!error) {
@@ -81,7 +81,7 @@ function updateAuthor () {
 function deleteAuthor () {
   const request = {
     name: name
-  }
+  };
 
   client.deleteAuthor(request, (error, response) => {
     if (!error) {
@@ -97,8 +97,8 @@ function main() {
   // createAuthor();
   // // getAuthors();
   // // getAuthor();
-   updateAuthor();
-  // deleteAuthor();
+  //  updateAuthor();
+  deleteAuthor();
 }
 
 main();

@@ -13,16 +13,11 @@ service AuthorService {
 message noParameter {};
 
 message Author {
-  string id = 1;
-  string name = 2;
+  string name = 1;
 }
 
 message Authors {
   repeated Author authors = 1;
-}
-
-message AuthorId {
-  string id = 1;
 }
 
 message AuthorName {

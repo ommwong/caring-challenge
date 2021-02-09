@@ -1,6 +1,6 @@
 const grpc = require('grpc');
 const protoLoader = require('@grpc/proto-loader');
-const { v4: uuidv4 } = require("uuid");
+// const { v4: uuidv4 } = require("uuid");
 
 const environment = process.env.ENV || 'development';
 const config = require('./knexfile')[environment];
@@ -22,7 +22,7 @@ const authors = []
 //constructing API here =>
 function createAuthor(call, callback) {
   const author = {
-    id: uuidv4(),
+    // id: uuidv4(),
     name: call.request.name
   }
 
