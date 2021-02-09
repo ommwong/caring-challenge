@@ -1,7 +1,6 @@
 const grpc = require('grpc');
 const protoLoader = require('@grpc/proto-loader');
 const path = require('path');
-const { format } = require('path');
 const literaryProtoPath = path.join(__dirname, "..", "protos", "literary.proto");
 const literaryProtoDefinition = protoLoader.loadSync(literaryProtoPath, {
   keepCase: true,
@@ -17,9 +16,15 @@ const client = new literaryPackage.LiteraryService(
   grpc.credentials.createInsecure()
 )
 
-const name = process.argv[2];
+// const name = process.argv[2];
 
-// const title = process.argv[2];
+const title = process.argv[2];
+const author = process.argv[3];
+const isbn = process.argv[4];
+const bookFormat = process.argv[5];
+const pages = process.argv[6]
+
+
 // const updatedTitle = process.argv[3];
 // const updatedAuthor = process.argv[4];
 // const updatedIsbn = process.argv[5];
@@ -179,12 +184,12 @@ function deleteBook () {
 };
 
 function main() {
-  createAuthor();
+  // createAuthor();
   // // getAuthors();
   // // getAuthor();
   //  updateAuthor();
   // deleteAuthor();
-  // createBook();
+  createBook();
   // getBook();
   // getBooks();
   // updateBook();
