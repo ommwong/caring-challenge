@@ -58,7 +58,7 @@ message UpdateBook {
   int32 updatedAuthor = 4;
   string isbn = 5;
   string updatedIsbn= 6;
-  string bookFormat = 7;
+  string format = 7;
   string updatedBookFormat = 8;
   int32 pages = 9;
   int32 updatedPages = 10;
