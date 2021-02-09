@@ -20,7 +20,12 @@ const createAward = (call, callback) => {
 };
 
 const getAwards = (call, callback) => {
-
+  knex('awards')
+  .then(data => {
+    callback(null, {
+      awards: data
+    })
+  })
 };
 
 const getAward = (call, callback) => {

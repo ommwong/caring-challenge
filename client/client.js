@@ -205,6 +205,18 @@ function createAward () {
   })
 };
 
+function getAwards () {
+  const request = {};
+
+  client.getAwards(request, (error, response) => {
+    if (!error) {
+      console.log('Awards from db: ', response);
+    } else {
+      console.error(error);
+    }
+  })
+};
+
 function main() {
   // createAuthor();
   // // getAuthors();
@@ -216,7 +228,8 @@ function main() {
   // getBooks();
   // updateBook();
   // deleteBook();
-  createAward();
+  // createAward();
+  getAwards();
 }
 
 main();
