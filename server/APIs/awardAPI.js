@@ -50,7 +50,29 @@ const getAward = (call, callback) => {
 };
 
 const updateAward = (call, callback) => {
+  const { award, year, updatedAward, updatedAuthor, updatedBook, updatedYear } = call.request
 
+  const existingAward = {
+    award: award,
+    year: year
+  }
+
+  knex('awards')
+    .where(existingAward)
+    .update({
+      award: updatedAward,
+      author: updatedAuthor,
+      book: updatedBook,
+      year: updatedYear
+    })
+    .returning()
+    .then(data => {
+      if (data) {
+        callback(null, data)
+      } else {
+        callback('Award does not exist')
+      }
+    })
 };
 
 const deleteAward = (call, callback) => {

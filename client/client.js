@@ -18,25 +18,11 @@ const client = new literaryPackage.LiteraryService(
 
 const award = process.argv[2];
 const year = process.argv[3];
+const updatedAward = process.argv[4];
+const updatedAuthor = process.argv[5];
+const updatedBook = process.argv[6];
+const updatedYear = process.argv[7];
 
-// const author = process.argv[3];
-// const book = process.argv[4];
-// const year = process.argv[5];
-
-// const name = process.argv[2];
-
-// const title = process.argv[2];
-// const author = process.argv[3];
-// const isbn = process.argv[4];
-// const bookFormat = process.argv[5];
-// const pages = process.argv[6]
-
-
-// const updatedTitle = process.argv[3];
-// const updatedAuthor = process.argv[4];
-// const updatedIsbn = process.argv[5];
-// const updatedBookFormat = process.argv[6];
-// const updatedPages = process.argv[7];
 
 function createAuthor () {
   const request = {
@@ -235,6 +221,26 @@ function getAward () {
   })
 };
 
+function updateAward () {
+  const request = {
+    award: award,
+    year: year,
+    updatedAward: updatedAward,
+    updatedAuthor: updatedAuthor,
+    updatedBook: updatedBook,
+    updatedYear: updatedYear
+  };
+
+  client.updateAward(request, (error, response) => {
+    if (!error) {
+      console.log('Successfully updated award', response);
+    } else {
+      console.error(error);
+    }
+  })
+};
+
+
 function main() {
   // createAuthor();
   // // getAuthors();
@@ -248,7 +254,8 @@ function main() {
   // deleteBook();
   // createAward();
   // getAwards();
-  getAward()
+  // getAward()
+  updateAward()
 }
 
 main();
