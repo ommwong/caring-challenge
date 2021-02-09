@@ -79,7 +79,7 @@ const deleteAuthor = (call, callback) => {
     })
 };
 
-const getAuthorsBooksAwards = (call, callback) => {
+const getAuthorsBooks = (call, callback) => {
   knex('authors')
     .join('books', 'authors.author_id', '=', 'books.author')
     .select('authors.name', 'books.title')
@@ -101,5 +101,5 @@ module.exports = {
   getAuthor,
   updateAuthor,
   deleteAuthor,
-  getAuthorsBooksAwards
+  getAuthorsBooks
 }

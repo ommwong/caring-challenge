@@ -265,10 +265,10 @@ function deleteAward () {
   })
 };
 
-function getAuthorsBooksAwards () {
+function getAuthorsBooks () {
   const request = {};
 
-  authorClient.getAuthorsBooksAwards(request, (error, response) => {
+  authorClient.getAuthorsBooks(request, (error, response) => {
     if (!error) {
       console.log('Authors with books:', response);
     } else {
@@ -294,6 +294,6 @@ function getAuthorsBooksAwards () {
   // getAward()
   // updateAward()
   // deleteAward()
-  getAuthorsBooksAwards()
+  getAuthorsBooks()
 })();
 
