@@ -16,13 +16,18 @@ const client = new literaryPackage.LiteraryService(
   grpc.credentials.createInsecure()
 )
 
+const award = process.argv[2];
+const author = process.argv[3];
+const book = process.argv[4];
+const year = process.argv[5];
+
 // const name = process.argv[2];
 
-const title = process.argv[2];
-const author = process.argv[3];
-const isbn = process.argv[4];
-const bookFormat = process.argv[5];
-const pages = process.argv[6]
+// const title = process.argv[2];
+// const author = process.argv[3];
+// const isbn = process.argv[4];
+// const bookFormat = process.argv[5];
+// const pages = process.argv[6]
 
 
 // const updatedTitle = process.argv[3];
@@ -183,17 +188,35 @@ function deleteBook () {
   })
 };
 
+function createAward () {
+  const request = {
+    award: award,
+    author: author,
+    book: book,
+    year: year
+  };
+
+  client.createAward(request, (error, response) => {
+    if (!error) {
+      console.log('Award created successfully: ', response)
+    } else {
+      console.error(error);
+    }
+  })
+};
+
 function main() {
   // createAuthor();
   // // getAuthors();
   // // getAuthor();
   //  updateAuthor();
   // deleteAuthor();
-  createBook();
+  // createBook();
   // getBook();
   // getBooks();
   // updateBook();
   // deleteBook();
+  createAward();
 }
 
 main();

@@ -2,6 +2,7 @@ const grpc = require('grpc');
 const protoLoader = require('@grpc/proto-loader');
 const authorAPI = require('./APIs/authorAPI');
 const bookAPI = require('./APIs/bookAPI');
+const awardAPI = require('./APIs/awardAPI');
 
 const path = require('path');
 const literaryProtoPath = path.join(__dirname, "..", "protos", "literary.proto");
@@ -30,7 +31,12 @@ server.addService(literaryPackage.LiteraryService.service, {
   getBooks: bookAPI.getBooks,
   getBook: bookAPI.getBook,
   updateBook: bookAPI.updateBook,
-  deleteBook: bookAPI.deleteBook
+  deleteBook: bookAPI.deleteBook,
+  createAward: awardAPI.createAward,
+  getAwards: awardAPI.getAwards,
+  getAward: awardAPI.getAward,
+  updateAward: awardAPI.updateAward,
+  deleteAward: awardAPI.deleteAward
 })
 
 server.start();
