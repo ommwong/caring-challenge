@@ -17,7 +17,17 @@ const server = http.createServer((req, res) => {
     grpc.deleteAuthor(req, res, name)
   };
 
-  if (req.url === '/authors' && req.method === 'PUT') grpc.updateAuthor(req, res);
+  const first = req.url.match(/\/authors\?=([a-zA-Z]+)/);
+  const second = req.url.match(/&=([a-zA-Z]+)/);
+
+  if (`${first}${second}` && req.method === 'PUT') {
+    console.log(req.url)
+    const name = req.url.split('=')[1].split('%20').join(' ').split('&')[0];
+    console.log(name)
+    const updatedName = req.url.split('=')[2].split('%20').join(' ');
+    console.log(updatedName);
+    grpc.updateAuthor(req, res, name, updatedName);
+  };
 
   if (req.url.match(authorsParams) && req.method === 'GET') {
     const name = req.url.split('=')[1].split('%20').join(' ');

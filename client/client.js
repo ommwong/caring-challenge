@@ -96,17 +96,25 @@ const getAuthor = (req, res, name) => {
 
 };
 
-const updateAuthor = (req, res) => {
+const updateAuthor = (req, res, name, updatedName) => {
   const request = {
     name: name,
     updatedName: updatedName
   };
 
   authorClient.updateAuthor(request, (error, response) => {
-    if (!error) {
-      console.log('Successfully updated author', response);
-    } else {
-      console.error(error);
+    try {
+      res.writeHead(200, {
+        'Content-type': 'application/json'
+      });
+      res.end(JSON.stringify(response));
+    } catch {
+      res.writeHead(404, {
+        'Content-type': 'application/json'
+      });
+      res.end(JSON.stringify({
+        message: 'Route not found'
+      }));
     }
   })
 };
