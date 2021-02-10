@@ -33,7 +33,7 @@ const awardClient = new literaryPackage.AwardService(
 // const updatedBook = process.argv[6];
 // const updatedYear = process.argv[7];
 
-function createAuthor () {
+const createAuthor = () =>{
   const request = {
     name: name
   };
@@ -47,7 +47,7 @@ function createAuthor () {
   })
 };
 
-function getAuthors () {
+const getAuthors = () => {
   const request = {};
 
   authorClient.getAuthors(request, (error, response) => {
@@ -59,7 +59,7 @@ function getAuthors () {
   })
 };
 
-function getAuthor () {
+const getAuthor = () => {
   const request = {
     name: name
   };
@@ -75,7 +75,7 @@ function getAuthor () {
 
 };
 
-function updateAuthor () {
+const updateAuthor = () => {
   const request = {
     name: name,
     updatedName: updatedName
@@ -90,7 +90,7 @@ function updateAuthor () {
   })
 };
 
-function deleteAuthor () {
+const deleteAuthor = () => {
   const request = {
     name: name
   };
@@ -105,7 +105,7 @@ function deleteAuthor () {
   })
 };
 
-function createBook () {
+const createBook = () => {
   const request = {
     title: title,
     author: author,
@@ -124,7 +124,7 @@ function createBook () {
   })
 };
 
-function getBook () {
+const getBook = () => {
   const request = {
     title: title,
   };
@@ -139,7 +139,7 @@ function getBook () {
   })
 };
 
-function getBooks () {
+const getBooks = () => {
   const request = {};
 
   bookClient.getBooks(request, (error, response) => {
@@ -151,7 +151,7 @@ function getBooks () {
   })
 };
 
-function updateBook () {
+const updateBook = () => {
   const request = {
     title: title,
     updatedTitle: updatedTitle,
@@ -170,7 +170,7 @@ function updateBook () {
   })
 };
 
-function deleteBook () {
+const deleteBook = () => {
   const request = {
     title: title
   };
@@ -185,7 +185,7 @@ function deleteBook () {
   })
 };
 
-function createAward () {
+const createAward = () => {
   const request = {
     award: award,
     author: author,
@@ -202,7 +202,7 @@ function createAward () {
   })
 };
 
-function getAwards () {
+const getAwards = () => {
   const request = {};
 
   awardClient.getAwards(request, (error, response) => {
@@ -214,7 +214,7 @@ function getAwards () {
   })
 };
 
-function getAward () {
+const getAward = () => {
   const request = {
     award: award,
     year: year
@@ -230,7 +230,7 @@ function getAward () {
   })
 };
 
-function updateAward () {
+const updateAward = () => {
   const request = {
     award: award,
     year: year,
@@ -249,7 +249,7 @@ function updateAward () {
   })
 };
 
-function deleteAward () {
+const deleteAward = () => {
   const request = {
     award: award,
     year: year
@@ -265,7 +265,7 @@ function deleteAward () {
   })
 };
 
-function getAuthorsBooks () {
+const getAuthorsBooks = () => {
   const request = {};
 
   authorClient.getAuthorsBooks(request, (error, response) => {
@@ -278,7 +278,7 @@ function getAuthorsBooks () {
   })
 }
 
-function getAuthorsBooksAwards () {
+const getAuthorsBooksAwards = () => {
   const request = {};
 
   authorClient.getAuthorsBooksAwards(request, (error, response) => {
@@ -291,7 +291,7 @@ function getAuthorsBooksAwards () {
   })
 }
 
-function getAuthorsAwards () {
+const getAuthorsAwards = () => {
   const request = {};
 
   authorClient.getAuthorsAwards(request, (error, response) => {
@@ -304,7 +304,7 @@ function getAuthorsAwards () {
   })
 }
 
-function getBooksAwards () {
+const getBooksAwards = () => {
   const request = {};
 
   bookClient.getBooksAwards(request, (error, response) => {
@@ -336,6 +336,27 @@ function getBooksAwards () {
   // getAuthorsBooks();
   // getAuthorsBooksAwards()
   // getAuthorsAwards()
-  getBooksAwards()
+  // getBooksAwards()
 })();
 
+module.exports = {
+  createAuthor,
+  getAuthors,
+  getAuthor,
+  updateAuthor,
+  deleteAuthor,
+  getAuthorsBooks,
+  getAuthorsBooksAwards,
+  getAuthorsAwards,
+  createBook,
+  getBooks,
+  getBook,
+  updateBook,
+  deleteBook,
+  getBooksAwards,
+  createAward,
+  getAwards,
+  getAward,
+  updateAward,
+  deleteAward,
+}
