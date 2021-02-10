@@ -33,7 +33,7 @@ const awardClient = new literaryPackage.AwardService(
 // const updatedBook = process.argv[6];
 // const updatedYear = process.argv[7];
 
-const createAuthor = () =>{
+const createAuthor = (req, res) =>{
   const request = {
     name: name
   };
@@ -47,7 +47,7 @@ const createAuthor = () =>{
   })
 };
 
-const getAuthors = () => {
+const getAuthors = (req, res) => {
   const request = {};
 
   authorClient.getAuthors(request, (error, response) => {
@@ -59,7 +59,7 @@ const getAuthors = () => {
   })
 };
 
-const getAuthor = () => {
+const getAuthor = (req, res) => {
   const request = {
     name: name
   };
@@ -75,7 +75,7 @@ const getAuthor = () => {
 
 };
 
-const updateAuthor = () => {
+const updateAuthor = (req, res) => {
   const request = {
     name: name,
     updatedName: updatedName
@@ -90,7 +90,7 @@ const updateAuthor = () => {
   })
 };
 
-const deleteAuthor = () => {
+const deleteAuthor = (req, res) => {
   const request = {
     name: name
   };
@@ -105,7 +105,7 @@ const deleteAuthor = () => {
   })
 };
 
-const createBook = () => {
+const createBook = (req, res) => {
   const request = {
     title: title,
     author: author,
@@ -124,7 +124,7 @@ const createBook = () => {
   })
 };
 
-const getBook = () => {
+const getBook = (req, res) => {
   const request = {
     title: title,
   };
@@ -139,7 +139,7 @@ const getBook = () => {
   })
 };
 
-const getBooks = () => {
+const getBooks = (req, res) => {
   const request = {};
 
   bookClient.getBooks(request, (error, response) => {
@@ -151,7 +151,7 @@ const getBooks = () => {
   })
 };
 
-const updateBook = () => {
+const updateBook = (req, res) => {
   const request = {
     title: title,
     updatedTitle: updatedTitle,
@@ -170,7 +170,7 @@ const updateBook = () => {
   })
 };
 
-const deleteBook = () => {
+const deleteBook = (req, res) => {
   const request = {
     title: title
   };
@@ -185,7 +185,7 @@ const deleteBook = () => {
   })
 };
 
-const createAward = () => {
+const createAward = (req, res) => {
   const request = {
     award: award,
     author: author,
@@ -202,7 +202,7 @@ const createAward = () => {
   })
 };
 
-const getAwards = () => {
+const getAwards = (req, res) => {
   const request = {};
 
   awardClient.getAwards(request, (error, response) => {
@@ -214,7 +214,7 @@ const getAwards = () => {
   })
 };
 
-const getAward = () => {
+const getAward = (req, res) => {
   const request = {
     award: award,
     year: year
@@ -230,7 +230,7 @@ const getAward = () => {
   })
 };
 
-const updateAward = () => {
+const updateAward = (req, res) => {
   const request = {
     award: award,
     year: year,
@@ -249,7 +249,7 @@ const updateAward = () => {
   })
 };
 
-const deleteAward = () => {
+const deleteAward = (req, res) => {
   const request = {
     award: award,
     year: year
@@ -265,7 +265,7 @@ const deleteAward = () => {
   })
 };
 
-const getAuthorsBooks = () => {
+const getAuthorsBooks = (req, res) => {
   const request = {};
 
   authorClient.getAuthorsBooks(request, (error, response) => {
@@ -278,7 +278,7 @@ const getAuthorsBooks = () => {
   })
 }
 
-const getAuthorsBooksAwards = () => {
+const getAuthorsBooksAwards = (req, res) => {
   const request = {};
 
   authorClient.getAuthorsBooksAwards(request, (error, response) => {
@@ -291,7 +291,7 @@ const getAuthorsBooksAwards = () => {
   })
 }
 
-const getAuthorsAwards = () => {
+const getAuthorsAwards = (req, res) => {
   const request = {};
 
   authorClient.getAuthorsAwards(request, (error, response) => {
@@ -304,7 +304,7 @@ const getAuthorsAwards = () => {
   })
 }
 
-const getBooksAwards = () => {
+const getBooksAwards = (req, res) => {
   const request = {};
 
   bookClient.getBooksAwards(request, (error, response) => {
