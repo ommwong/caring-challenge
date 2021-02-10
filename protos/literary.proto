@@ -8,7 +8,9 @@ service AuthorService {
   rpc getAuthor (AuthorName) returns (Author) {};
   rpc updateAuthor (UpdateAuthor) returns (Author) {};
   rpc deleteAuthor (AuthorName) returns (Author) {};
+
   rpc getAuthorsBooks (noParameter) returns (AuthorsBooks) {};
+  rpc getAuthorsBooksAwards (noParameter) returns (AuthorsBooksAwards) {};
 }
 
 service BookService {
@@ -109,4 +111,14 @@ message AuthorsBooksMessage {
 
 message AuthorsBooks {
   repeated AuthorsBooksMessage result = 1;
+}
+
+message AuthorsBooksAwardsMessage {
+  string name = 1;
+  string title = 2;
+  string award = 3;
+}
+
+message AuthorsBooksAwards {
+  repeated AuthorsBooksAwardsMessage result = 1;
 }
