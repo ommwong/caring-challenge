@@ -111,17 +111,24 @@ const updateAuthor = (req, res) => {
   })
 };
 
-const deleteAuthor = (req, res) => {
+const deleteAuthor = (req, res, name) => {
   const request = {
     name: name
   };
 
   authorClient.deleteAuthor(request, (error, response) => {
-    if (!error) {
-      console.log('Successfully deleted author', response);
-    } else {
-      console.error(error);
-      console.log('Author does not exist');
+    try {
+      res.writeHead(200, {
+        'Content-type': 'application/json'
+      });
+      res.end(JSON.stringify(response));
+    } catch {
+      res.writeHead(404, {
+        'Content-type': 'application/json'
+      });
+      res.end(JSON.stringify({
+        message: 'Route not found'
+      }));
     }
   })
 };

@@ -2,20 +2,24 @@ const http = require('http');
 const grpc = require('./client');
 const url = require('url');
 
+const authorsParams = /\/authors\?=([a-zA-Z]+)/;
 
 const server = http.createServer((req, res) => {
   if (req.url === '/authors' && req.method === 'GET') grpc.getAuthors(req, res);
 
-  if (req.url.match(/\/authors\?=([a-zA-Z]+)/) && req.method === 'POST') {
+  if (req.url.match(authorsParams) && req.method === 'POST') {
     const name = req.url.split('=')[1].split('%20').join(' ');
     grpc.createAuthor(req, res, name);
   };
 
-  if (req.url === '/authors' && req.method === 'DELETE') grpc.deleteAuthor(req, res);
+  if (req.url.match(authorsParams) && req.method === 'DELETE') {
+    const name = req.url.split('=')[1].split('%20').join(' ');
+    grpc.deleteAuthor(req, res, name)
+  };
 
   if (req.url === '/authors' && req.method === 'PUT') grpc.updateAuthor(req, res);
 
-  if (req.url.match(/\/authors\?=([a-zA-Z]+)/) && req.method === 'GET') {
+  if (req.url.match(authorsParams) && req.method === 'GET') {
     const name = req.url.split('=')[1].split('%20').join(' ');
     grpc.getAuthor(req, res, name);
   };
