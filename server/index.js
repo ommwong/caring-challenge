@@ -6,6 +6,7 @@ const awardAPI = require('./APIs/awardAPI');
 
 const path = require('path');
 const literaryProtoPath = path.join(__dirname, "..", "protos", "literary.proto");
+
 const literaryProtoDefinition = protoLoader.loadSync(literaryProtoPath, {
   keepCase: true,
   longs: String,
