@@ -36,6 +36,7 @@ server.addService(literaryPackage.BookService.service, {
   getBook: bookAPI.getBook,
   updateBook: bookAPI.updateBook,
   deleteBook: bookAPI.deleteBook,
+  getBooksAwards: bookAPI.getBooksAwards
 })
 
 server.addService(literaryPackage.AwardService.service, {

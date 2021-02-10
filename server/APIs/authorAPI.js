@@ -129,6 +129,7 @@ const getAuthorsAwards = (call, callback) => {
 };
 
 
+
 module.exports = {
   createAuthor,
   getAuthors,
@@ -137,5 +138,6 @@ module.exports = {
   deleteAuthor,
   getAuthorsBooks,
   getAuthorsBooksAwards,
-  getAuthorsAwards
+  getAuthorsAwards,
+
 }

@@ -20,6 +20,8 @@ service BookService {
   rpc getBook (BookTitle) returns (Book) {};
   rpc updateBook (UpdateBook) returns (Book) {};
   rpc deleteBook (BookTitle) returns (Book) {};
+
+  rpc getBooksAwards (noParameter) returns (BooksAwards) {};
 }
 
 service AwardService {
@@ -126,9 +128,18 @@ message AuthorsBooksAwards {
 
 message AuthorsAwardsMessage {
   string name = 1;
-  string award = 3;
+  string award = 2;
 }
 
 message AuthorsAwards {
   repeated AuthorsAwardsMessage result = 1;
+}
+
+message BooksAwardsMessage {
+  string title = 1;
+  string award = 2;
+}
+
+message BooksAwards {
+  repeated BooksAwardsMessage result = 1;
 }

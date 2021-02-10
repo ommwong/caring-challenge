@@ -88,10 +88,27 @@ const deleteBook = (call, callback) => {
     })
 };
 
+const getBooksAwards = (call, callback) => {
+  knex('books')
+  .join('awards', 'books.book_id', '=', 'awards.book')
+  .select('books.title', 'awards.award')
+  .then(data => {
+    if (data) {
+      console.log(data);
+      callback(null, {
+        result: data
+      })
+    } else {
+      console.log('Error retrieving data')
+    }
+  })
+};
+
 module.exports = {
   createBook,
   getBooks,
   getBook,
   updateBook,
-  deleteBook
+  deleteBook,
+  getBooksAwards
 }
