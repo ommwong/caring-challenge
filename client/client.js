@@ -51,10 +51,14 @@ const getAuthors = (req, res) => {
   const request = {};
 
   authorClient.getAuthors(request, (error, response) => {
-    if (!error) {
-      console.log('Authors from db: ', response);
-    } else {
-      console.error(error);
+    try {
+      res.writeHead(200, {
+        'Content-type': 'application/json'
+      });
+      res.end(JSON.stringify(response));
+      // console.log('Authors from db: ', response);
+    } catch (error) {
+      console.log(error)
     }
   })
 };

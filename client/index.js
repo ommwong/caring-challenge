@@ -1,23 +1,11 @@
 const http = require('http');
+const { getAuthors } = require('./client');
 
-const router = require('./router/router');
-
-const server = http.createServer((request, response) => {
-  bodyParser(request, response, router)
-});
-
-const bodyParser = (request, response, next) => {
-  if (request.body === 'POST') {
-    const body = [];
-    request.on('data', (chunk) => body.push(chunk));
-    request.on('end', () => {
-      request.body = JSON.parse(Buffer.concat(body));
-      next(request, response);
-    })
-  } else {
-    next(request, response);
+const server = http.createServer((req, res) => {
+  if (req.url === '/authors' && req.method === 'GET') {
+    getAuthors(req, res)
   }
-};
+});
 
 const hostname = 'localhost';
 const port = 3000;
