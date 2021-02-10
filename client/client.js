@@ -56,7 +56,6 @@ const getAuthors = (req, res) => {
         'Content-type': 'application/json'
       });
       res.end(JSON.stringify(response));
-      // console.log('Authors from db: ', response);
     } catch (error) {
       console.log(error)
     }
@@ -147,10 +146,13 @@ const getBooks = (req, res) => {
   const request = {};
 
   bookClient.getBooks(request, (error, response) => {
-    if (!error) {
-      console.log('Books from db: ', response);
-    } else {
-      console.error(error);
+    try {
+      res.writeHead(200, {
+        'Content-type': 'application/json'
+      });
+      res.end(JSON.stringify(response));
+    } catch (error) {
+      console.log(error)
     }
   })
 };
@@ -210,10 +212,13 @@ const getAwards = (req, res) => {
   const request = {};
 
   awardClient.getAwards(request, (error, response) => {
-    if (!error) {
-      console.log('Awards from db: ', response);
-    } else {
-      console.error(error);
+    try {
+      res.writeHead(200, {
+        'Content-type': 'application/json'
+      });
+      res.end(JSON.stringify(response));
+    } catch (error) {
+      console.log(error)
     }
   })
 };
@@ -273,11 +278,13 @@ const getAuthorsBooks = (req, res) => {
   const request = {};
 
   authorClient.getAuthorsBooks(request, (error, response) => {
-    if (!error) {
-      console.log('Authors with books:', response);
-    } else {
-      console.error(error);
-      console.log('Oops');
+    try {
+      res.writeHead(200, {
+        'Content-type': 'application/json'
+      });
+      res.end(JSON.stringify(response));
+    } catch (error) {
+      console.log(error)
     }
   })
 }
@@ -286,11 +293,13 @@ const getAuthorsBooksAwards = (req, res) => {
   const request = {};
 
   authorClient.getAuthorsBooksAwards(request, (error, response) => {
-    if (!error) {
-      console.log('Authors, books, awards:', response);
-    } else {
-      console.error(error);
-      console.log('Oops');
+    try {
+      res.writeHead(200, {
+        'Content-type': 'application/json'
+      });
+      res.end(JSON.stringify(response));
+    } catch (error) {
+      console.log(error)
     }
   })
 }
@@ -299,11 +308,13 @@ const getAuthorsAwards = (req, res) => {
   const request = {};
 
   authorClient.getAuthorsAwards(request, (error, response) => {
-    if (!error) {
-      console.log('Authors with awards:', response);
-    } else {
-      console.error(error);
-      console.log('Oops');
+    try {
+      res.writeHead(200, {
+        'Content-type': 'application/json'
+      });
+      res.end(JSON.stringify(response));
+    } catch (error) {
+      console.log(error)
     }
   })
 }
@@ -312,11 +323,13 @@ const getBooksAwards = (req, res) => {
   const request = {};
 
   bookClient.getBooksAwards(request, (error, response) => {
-    if (!error) {
-      console.log('Books with awards:', response);
-    } else {
-      console.error(error);
-      console.log('Oops');
+    try {
+      res.writeHead(200, {
+        'Content-type': 'application/json'
+      });
+      res.end(JSON.stringify(response));
+    } catch (error) {
+      console.log(error)
     }
   })
 }
