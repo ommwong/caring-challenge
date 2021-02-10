@@ -112,6 +112,21 @@ const getAuthorsBooksAwards = (call, callback) => {
     })
 };
 
+const getAuthorsAwards = (call, callback) => {
+  knex('authors')
+  .join('awards', 'authors.author_id', '=', 'awards.author')
+  .select('authors.name', 'awards.award')
+  .then(data => {
+    if (data) {
+      console.log(data);
+      callback(null, {
+        result: data
+      })
+    } else {
+      console.log('Error retrieving data')
+    }
+  })
+};
 
 
 module.exports = {
@@ -121,5 +136,6 @@ module.exports = {
   updateAuthor,
   deleteAuthor,
   getAuthorsBooks,
-  getAuthorsBooksAwards
+  getAuthorsBooksAwards,
+  getAuthorsAwards
 }

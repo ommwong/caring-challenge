@@ -291,6 +291,19 @@ function getAuthorsBooksAwards () {
   })
 }
 
+function getAuthorsAwards () {
+  const request = {};
+
+  authorClient.getAuthorsAwards(request, (error, response) => {
+    if (!error) {
+      console.log('Authors with awards:', response);
+    } else {
+      console.error(error);
+      console.log('Oops');
+    }
+  })
+}
+
 (function () {
   // createAuthor();
   // getAuthors();
@@ -308,6 +321,7 @@ function getAuthorsBooksAwards () {
   // updateAward()
   // deleteAward()
   // getAuthorsBooks();
-  getAuthorsBooksAwards()
+  // getAuthorsBooksAwards()
+  getAuthorsAwards()
 })();
 
