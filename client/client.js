@@ -33,8 +33,10 @@ const awardClient = new literaryPackage.AwardService(
 // const updatedBook = process.argv[6];
 // const updatedYear = process.argv[7];
 
-const createAuthor = (req, res) =>{
-  const request = {};
+const createAuthor = (req, res, name) =>{
+  const request = {
+    name: name
+  };
 
   authorClient.createAuthor(request, (error, response) => {
     try {
@@ -73,7 +75,7 @@ const getAuthors = (req, res) => {
 
 const getAuthor = (req, res, name) => {
   const response = {
-    name
+    name: name
   }
 
   authorClient.getAuthor(response, (error, response) => {
