@@ -34,45 +34,61 @@ const awardClient = new literaryPackage.AwardService(
 // const updatedYear = process.argv[7];
 
 const createAuthor = (req, res) =>{
-  const request = {
-    name: name
-  };
-
-  authorClient.createAuthor(request, (error, response) => {
-    if (!error) {
-      console.log('Author created successfully: ', response)
-    } else {
-      console.error(error);
-    }
-  })
-};
-
-const getAuthors = (req, res) => {
   const request = {};
 
-  authorClient.getAuthors(request, (error, response) => {
+  authorClient.createAuthor(request, (error, response) => {
     try {
       res.writeHead(200, {
         'Content-type': 'application/json'
       });
       res.end(JSON.stringify(response));
-    } catch (error) {
-      console.log(error)
+    } catch {
+      res.writeHead(404, {
+        'Content-type': 'application/json'
+      });
+      res.end(JSON.stringify({
+        message: 'Route not found'
+      }));
     }
   })
 };
 
-const getAuthor = (req, res) => {
-  const request = {
-    name: name
-  };
+const getAuthors = (req, res) => {
+  authorClient.getAuthors({}, (error, response) => {
+    try {
+      res.writeHead(200, {
+        'Content-type': 'application/json'
+      });
+      res.end(JSON.stringify(response));
+    } catch {
+      res.writeHead(404, {
+        'Content-type': 'application/json'
+      });
+      res.end(JSON.stringify({
+        message: 'Route not found'
+      }));
+    }
+  })
+};
 
-  authorClient.getAuthor(request, (error, response) => {
-    if (!error) {
-      console.log('Here is the author: ', response);
-    } else {
-      console.error(error);
-      console.log('Author does not exist!')
+const getAuthor = (req, res, name) => {
+  const response = {
+    name
+  }
+
+  authorClient.getAuthor(response, (error, response) => {
+    try {
+      res.writeHead(200, {
+        'Content-type': 'application/json'
+      });
+      res.end(JSON.stringify(response));
+    } catch {
+      res.writeHead(404, {
+        'Content-type': 'application/json'
+      });
+      res.end(JSON.stringify({
+        message: 'Route not found'
+      }));
     }
   });
 
@@ -143,16 +159,19 @@ const getBook = (req, res) => {
 };
 
 const getBooks = (req, res) => {
-  const request = {};
-
-  bookClient.getBooks(request, (error, response) => {
+  bookClient.getBooks({}, (error, response) => {
     try {
       res.writeHead(200, {
         'Content-type': 'application/json'
       });
       res.end(JSON.stringify(response));
-    } catch (error) {
-      console.log(error)
+    } catch {
+      res.writeHead(404, {
+        'Content-type': 'application/json'
+      });
+      res.end(JSON.stringify({
+        message: 'Route not found'
+      }));
     }
   })
 };
@@ -209,16 +228,19 @@ const createAward = (req, res) => {
 };
 
 const getAwards = (req, res) => {
-  const request = {};
-
-  awardClient.getAwards(request, (error, response) => {
+  awardClient.getAwards({}, (error, response) => {
     try {
       res.writeHead(200, {
         'Content-type': 'application/json'
       });
       res.end(JSON.stringify(response));
-    } catch (error) {
-      console.log(error)
+    } catch {
+      res.writeHead(404, {
+        'Content-type': 'application/json'
+      });
+      res.end(JSON.stringify({
+        message: 'Route not found'
+      }));
     }
   })
 };
@@ -275,61 +297,73 @@ const deleteAward = (req, res) => {
 };
 
 const getAuthorsBooks = (req, res) => {
-  const request = {};
-
-  authorClient.getAuthorsBooks(request, (error, response) => {
+  authorClient.getAuthorsBooks({}, (error, response) => {
     try {
       res.writeHead(200, {
         'Content-type': 'application/json'
       });
       res.end(JSON.stringify(response));
-    } catch (error) {
-      console.log(error)
+    } catch {
+      res.writeHead(404, {
+        'Content-type': 'application/json'
+      });
+      res.end(JSON.stringify({
+        message: 'Route not found'
+      }));
     }
   })
 }
 
 const getAuthorsBooksAwards = (req, res) => {
-  const request = {};
-
-  authorClient.getAuthorsBooksAwards(request, (error, response) => {
+  authorClient.getAuthorsBooksAwards({}, (error, response) => {
     try {
       res.writeHead(200, {
         'Content-type': 'application/json'
       });
       res.end(JSON.stringify(response));
-    } catch (error) {
-      console.log(error)
+    } catch {
+      res.writeHead(404, {
+        'Content-type': 'application/json'
+      });
+      res.end(JSON.stringify({
+        message: 'Route not found'
+      }));
     }
   })
 }
 
 const getAuthorsAwards = (req, res) => {
-  const request = {};
-
-  authorClient.getAuthorsAwards(request, (error, response) => {
+  authorClient.getAuthorsAwards({}, (error, response) => {
     try {
       res.writeHead(200, {
         'Content-type': 'application/json'
       });
       res.end(JSON.stringify(response));
-    } catch (error) {
-      console.log(error)
+    } catch {
+      res.writeHead(404, {
+        'Content-type': 'application/json'
+      });
+      res.end(JSON.stringify({
+        message: 'Route not found'
+      }));
     }
   })
 }
 
 const getBooksAwards = (req, res) => {
-  const request = {};
-
-  bookClient.getBooksAwards(request, (error, response) => {
+  bookClient.getBooksAwards({}, (error, response) => {
     try {
       res.writeHead(200, {
         'Content-type': 'application/json'
       });
       res.end(JSON.stringify(response));
-    } catch (error) {
-      console.log(error)
+    } catch {
+      res.writeHead(404, {
+        'Content-type': 'application/json'
+      });
+      res.end(JSON.stringify({
+        message: 'Route not found'
+      }));
     }
   })
 }
