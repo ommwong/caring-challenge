@@ -352,18 +352,25 @@ const getAwards = (req, res) => {
   })
 };
 
-const getAward = (req, res) => {
+const getAward = (req, res, award, year) => {
   const request = {
     award: award,
     year: year
   };
 
   awardClient.getAward(request, (error, response) => {
-    if (!error) {
-      console.log('Here is the award:', response);
-    } else {
-      console.error(error);
-      console.log('Award is not found!');
+    try {
+      res.writeHead(200, {
+        'Content-type': 'application/json'
+      });
+      res.end(JSON.stringify(response));
+    } catch {
+      res.writeHead(404, {
+        'Content-type': 'application/json'
+      });
+      res.end(JSON.stringify({
+        message: 'Route not found'
+      }));
     }
   })
 };

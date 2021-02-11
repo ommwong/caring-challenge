@@ -2,6 +2,8 @@ const http = require('http');
 const grpc = require('./client');
 
 const authorsParams = /\/authors\/([a-zA-Z]+)/;
+const booksParams = /\/books\/([a-zA-Z]+)/;
+const awardsParams = /\/awards\/([a-zA-Z]+)/;
 
 const server = http.createServer((req, res) => {
 
@@ -30,6 +32,14 @@ const server = http.createServer((req, res) => {
     if (req.method === 'PUT') grpc.updateBook(req, res);
   };
 
+  if (req.url.match(booksParams) && req.method === 'GET') {
+    let title = req.url.split('/')[2];
+
+    title.includes('%20') ? title = title.split('%20').join(' ') : title = title;
+
+    grpc.getBook(req, res, title)
+  };
+
   // //AWARDS ROUTES =>
 
   if (req.url === '/awards') {
@@ -39,19 +49,26 @@ const server = http.createServer((req, res) => {
     if (req.method === 'PUT') grpc.updateAward(req, res);
   };
 
-  // if (req.url.match(/\/books\/([a-zA-Z]+)/) && req.method === 'GET') {
-  //   const title = req.url.split('/')[2].split('%20').join(' ');
-  //   grpc.getBook(req, res, title)
-  // };
+  if (req.url.match(awardsParams) && req.method === 'GET') {
+    const url = req.url.split('/');
+    let award = url[2];
 
-  // if (req.url === '/authors-books' && req.method === 'GET') grpc.getAuthorsBooks(req, res);
+    award.includes('%20') ? award = award.split('%20').join(' ') : award = award;
 
-  // if (req.url === '/authors-books-awards' && req.method === 'GET') grpc.getAuthorsBooksAwards(req, res);
+    const year = url[3];
 
-  // if (req.url === '/authors-awards' && req.method === 'GET') grpc.getAuthorsAwards(req, res);
+    grpc.getAward(req, res, award, year)
+  };
 
-  // if (req.url === '/books-awards' && req.method === 'GET') grpc.getBooksAwards(req, res);
+  // //QUERY ROUTES
 
+  if (req.url === '/authors-books' && req.method === 'GET') grpc.getAuthorsBooks(req, res);
+
+  if (req.url === '/authors-books-awards' && req.method === 'GET') grpc.getAuthorsBooksAwards(req, res);
+
+  if (req.url === '/authors-awards' && req.method === 'GET') grpc.getAuthorsAwards(req, res);
+
+  if (req.url === '/books-awards' && req.method === 'GET') grpc.getBooksAwards(req, res);
 
 });
 
