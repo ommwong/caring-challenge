@@ -14,6 +14,8 @@ const server = http.createServer((req, res) => {
     grpc.createAuthor(req, res, name);
   };
 
+  // if (req.url === '/authors' && req.method === 'POST') grpc.createAuthor(req, res);
+
   if (req.url.match(authorsParams) && req.method === 'DELETE') {
     const name = req.url.split('=')[1].split('%20').join(' ');
     grpc.deleteAuthor(req, res, name)
@@ -34,9 +36,13 @@ const server = http.createServer((req, res) => {
   if (req.url === '/books' && req.method === 'GET') grpc.getBooks(req, res);
 
   if (req.url.match(booksParams) && req.method === 'POST') {
-    console.log(req.url)
-    // const title = req.url.split('=')[1].split('%20').join(' ');
-    // grpc.createBook(req, res, title);
+    const url = req.url.split('/');
+    const title = url[2];
+    const author = url[3];
+    const isbn = url[4];
+    const bookFormat = url[5];
+    const pages = url[6];
+    grpc.createBook(req, res, title, author, isbn, bookFormat, pages);
   };
 
   if (req.url === '/awards') {

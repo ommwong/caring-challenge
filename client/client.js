@@ -26,22 +26,29 @@ const awardClient = new literaryPackage.AwardService(
   grpc.credentials.createInsecure()
 )
 
-// const award = process.argv[2];
-// const year = process.argv[3];
-// const updatedAward = process.argv[4];
-// const updatedAuthor = process.argv[5];
-// const updatedBook = process.argv[6];
-// const updatedYear = process.argv[7];
+const createAuthor = (req, res, name) => {
 
-const createAuthor = (req, res, name) =>{
   const request = {
     name: name
   };
 
+  // let body = [];
+  // req.on('data', (chunk) => {
+  //   body.push(chunk.toString());
+  // });
+
+  // req.on('end', () => {
+  //   const { name } = JSON.parse(body);
+  //   request.name = name;
+  //   res.writeHead(201, {
+  //     'Content-Type': 'application/json'
+  //   });
+  // });
+
   authorClient.createAuthor(request, (error, response) => {
     try {
       res.writeHead(201, {
-        'Content-type': 'application/json'
+        'Content-Type': 'application/json'
       });
       return res.end(JSON.stringify(response));
     } catch {
@@ -141,7 +148,7 @@ const deleteAuthor = (req, res, name) => {
   })
 };
 
-const createBook = (req, res) => {
+const createBook = (req, res, title, author, isbn, bookFormat, pages) => {
   const request = {
     title: title,
     author: author,
@@ -151,11 +158,18 @@ const createBook = (req, res) => {
   };
 
   bookClient.createBook(request, (error, response) => {
-    if (!error) {
-      console.log('Successfully created new book', response);
-    } else {
-      console.error(error);
-      console.log('Book not created');
+    try {
+      res.writeHead(201, {
+        'Content-type': 'application/json'
+      });
+      res.end(JSON.stringify(response));
+    } catch {
+      res.writeHead(404, {
+        'Content-type': 'application/json'
+      });
+      res.end(JSON.stringify({
+        message: 'Route not found'
+      }));
     }
   })
 };
