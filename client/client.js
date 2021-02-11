@@ -269,25 +269,6 @@ const updateBook = (req, res) => {
   });
 };
 
-// const updateBook = (req, res) => {
-//   const request = {
-//     title: title,
-//     updatedTitle: updatedTitle,
-//     updatedAuthor: updatedAuthor,
-//     updatedIsbn: updatedIsbn,
-//     updatedBookFormat: updatedBookFormat,
-//     updatedPages: updatedPages
-//   };
-
-//   bookClient.updateBook(request, (error, response) => {
-//     if (!error) {
-//       console.log('Successfully updated book', response);
-//     } else {
-//       console.error(error);
-//     }
-//   })
-// };
-
 const deleteBook = (req, res) => {
   let body = [];
 
@@ -320,20 +301,37 @@ const deleteBook = (req, res) => {
 };
 
 const createAward = (req, res) => {
-  const request = {
-    award: award,
-    author: author,
-    book: book,
-    year: year
-  };
+  let body = [];
 
-  awardClient.createAward(request, (error, response) => {
-    if (!error) {
-      console.log('Award created successfully: ', response)
-    } else {
-      console.error(error);
-    }
-  })
+  req.on('data', (chunk) => {
+    body.push(chunk.toString());
+  });
+
+  req.on('end', () => {
+    const { award, author, book, year } = JSON.parse(body);
+    const request = {
+      award: award,
+      author: author,
+      book: book,
+      year: year
+    };
+
+    awardClient.createAward(request, (error, response) => {
+      try {
+        res.writeHead(201, {
+          'Content-Type': 'application/json'
+        });
+        return res.end(JSON.stringify(response));
+      } catch {
+        res.writeHead(404, {
+          'Content-type': 'application/json'
+        });
+        res.end(JSON.stringify({
+          message: 'Route not found'
+        }));
+      }
+    })
+  });
 };
 
 const getAwards = (req, res) => {
@@ -371,38 +369,91 @@ const getAward = (req, res) => {
 };
 
 const updateAward = (req, res) => {
-  const request = {
-    award: award,
-    year: year,
-    updatedAward: updatedAward,
-    updatedAuthor: updatedAuthor,
-    updatedBook: updatedBook,
-    updatedYear: updatedYear
-  };
+  let body = [];
 
-  awardClient.updateAward(request, (error, response) => {
-    if (!error) {
-      console.log('Successfully updated award', response);
-    } else {
-      console.error(error);
-    }
-  })
+  req.on('data', (chunk) => {
+    body.push(chunk.toString());
+  });
+
+  req.on('end', () => {
+    const { award, year, updatedAward, updatedAuthor, updatedBook, updatedYear } = JSON.parse(body);
+
+    const request = {
+      award: award,
+      year: year,
+      updatedAward: updatedAward,
+      updatedAuthor: updatedAuthor,
+      updatedBook: updatedBook,
+      updatedYear: updatedYear
+    };
+
+    awardClient.updateAward(request, (error, response) => {
+      try {
+        res.writeHead(201, {
+          'Content-Type': 'application/json'
+        });
+        return res.end(JSON.stringify(response));
+      } catch {
+        res.writeHead(404, {
+          'Content-type': 'application/json'
+        });
+        res.end(JSON.stringify({
+          message: 'Route not found'
+        }));
+      }
+    })
+  });
 };
 
-const deleteAward = (req, res) => {
-  const request = {
-    award: award,
-    year: year
-  };
+// const updateAward = (req, res) => {
+//   const request = {
+//     award: award,
+//     year: year,
+//     updatedAward: updatedAward,
+//     updatedAuthor: updatedAuthor,
+//     updatedBook: updatedBook,
+//     updatedYear: updatedYear
+//   };
 
-  awardClient.deleteAward(request, (error, response) => {
-    if (!error) {
-      console.log('Successfully deleted award', response);
-    } else {
-      console.error(error);
-      console.log('Award does not exist');
-    }
-  })
+//   awardClient.updateAward(request, (error, response) => {
+//     if (!error) {
+//       console.log('Successfully updated award', response);
+//     } else {
+//       console.error(error);
+//     }
+//   })
+// };
+
+const deleteAward = (req, res) => {
+  let body = [];
+
+  req.on('data', (chunk) => {
+    body.push(chunk.toString());
+  });
+
+  req.on('end', () => {
+    const { award, year } = JSON.parse(body);
+    const request = {
+      award: award,
+      year: year,
+    };
+
+    awardClient.deleteAward(request, (error, response) => {
+      try {
+        res.writeHead(201, {
+          'Content-Type': 'application/json'
+        });
+        return res.end(JSON.stringify(response));
+      } catch {
+        res.writeHead(404, {
+          'Content-type': 'application/json'
+        });
+        res.end(JSON.stringify({
+          message: 'Route not found'
+        }));
+      }
+    })
+  });
 };
 
 const getAuthorsBooks = (req, res) => {

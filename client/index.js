@@ -30,30 +30,19 @@ const server = http.createServer((req, res) => {
     if (req.method === 'PUT') grpc.updateBook(req, res);
   };
 
+  // //AWARDS ROUTES =>
 
-  // if (req.url.match(booksParams) && req.method === 'POST') {
-  //   const url = req.url.split('/');
-  //   const title = url[2];
-  //   const author = url[3];
-  //   const isbn = url[4];
-  //   const bookFormat = url[5];
-  //   const pages = url[6];
-  //   grpc.createBook(req, res, title, author, isbn, bookFormat, pages);
-  // };
-
-  // if (req.url.match(/\/books\/([a-zA-Z]+)/) && req.method === 'DELETE') {
-  //   const title = req.url.split('/')[2].split('%20').join(' ');
-  //   grpc.deleteBook(req, res, title)
-  // };
+  if (req.url === '/awards') {
+    if (req.method === 'GET') grpc.getAwards(req, res);
+    if (req.method === 'POST') grpc.createAward(req, res);
+    if (req.method === 'DELETE') grpc.deleteAward(req, res);
+    if (req.method === 'PUT') grpc.updateAward(req, res);
+  };
 
   // if (req.url.match(/\/books\/([a-zA-Z]+)/) && req.method === 'GET') {
   //   const title = req.url.split('/')[2].split('%20').join(' ');
   //   grpc.getBook(req, res, title)
   // };
-
-  // if (req.url === '/awards') {
-  //   if (req.method === 'GET') grpc.getAwards(req, res);
-  // }
 
   // if (req.url === '/authors-books' && req.method === 'GET') grpc.getAuthorsBooks(req, res);
 
