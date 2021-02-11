@@ -1,14 +1,16 @@
 const http = require('http');
 const grpc = require('./client');
-const url = require('url');
 
-const authorsParams = /\/authors\?=([a-zA-Z]+)/;
+const authorsParams = /\/authors\/([a-zA-Z]+)/;
+const booksParams = /\/books\/([a-zA-Z]+)\/([0-9]+)/;
 
 const server = http.createServer((req, res) => {
+  //AUTHOR ROUTES=>
+
   if (req.url === '/authors' && req.method === 'GET') grpc.getAuthors(req, res);
 
   if (req.url.match(authorsParams) && req.method === 'POST') {
-    const name = req.url.split('=')[1].split('%20').join(' ');
+    const name = req.url.split('/')[2].split('%20').join(' ')
     grpc.createAuthor(req, res, name);
   };
 
@@ -17,27 +19,24 @@ const server = http.createServer((req, res) => {
     grpc.deleteAuthor(req, res, name)
   };
 
-  const first = req.url.match(/\/authors\?=([a-zA-Z]+)/);
-  const second = req.url.match(/&=([a-zA-Z]+)/);
-
-  if (`${first}${second}` && req.method === 'PUT') {
-    console.log(req.url)
-    const name = req.url.split('=')[1].split('%20').join(' ').split('&')[0];
-    console.log(name)
-    const updatedName = req.url.split('=')[2].split('%20').join(' ');
-    console.log(updatedName);
+  if (req.url.match(authorsParams) && req.method === 'PUT') {
+    const name = req.url.split('/')[2].split('%20').join(' ');
+    const updatedName = req.url.split('/')[3].split('%20').join(' ');
     grpc.updateAuthor(req, res, name, updatedName);
-  };
+  }
 
   if (req.url.match(authorsParams) && req.method === 'GET') {
     const name = req.url.split('=')[1].split('%20').join(' ');
     grpc.getAuthor(req, res, name);
   };
 
+  //BOOKS ROUTES =>
+  if (req.url === '/books' && req.method === 'GET') grpc.getBooks(req, res);
 
-
-  if (req.url === '/books') {
-    if (req.method === 'GET') grpc.getBooks(req, res);
+  if (req.url.match(booksParams) && req.method === 'POST') {
+    console.log(req.url)
+    // const title = req.url.split('=')[1].split('%20').join(' ');
+    // grpc.createBook(req, res, title);
   };
 
   if (req.url === '/awards') {

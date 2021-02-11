@@ -40,10 +40,10 @@ const createAuthor = (req, res, name) =>{
 
   authorClient.createAuthor(request, (error, response) => {
     try {
-      res.writeHead(200, {
+      res.writeHead(201, {
         'Content-type': 'application/json'
       });
-      res.end(JSON.stringify(response));
+      return res.end(JSON.stringify(response));
     } catch {
       res.writeHead(404, {
         'Content-type': 'application/json'
