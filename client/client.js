@@ -199,7 +199,7 @@ const getBook = (req, res, title) => {
 
   bookClient.getBook(request, (error, response) => {
     try {
-      res.writeHead(201, {
+      res.writeHead(200, {
         'Content-type': 'application/json'
       });
       res.end(JSON.stringify(response));
@@ -411,25 +411,6 @@ const updateAward = (req, res) => {
     })
   });
 };
-
-// const updateAward = (req, res) => {
-//   const request = {
-//     award: award,
-//     year: year,
-//     updatedAward: updatedAward,
-//     updatedAuthor: updatedAuthor,
-//     updatedBook: updatedBook,
-//     updatedYear: updatedYear
-//   };
-
-//   awardClient.updateAward(request, (error, response) => {
-//     if (!error) {
-//       console.log('Successfully updated award', response);
-//     } else {
-//       console.error(error);
-//     }
-//   })
-// };
 
 const deleteAward = (req, res) => {
   let body = [];

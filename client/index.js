@@ -7,7 +7,7 @@ const awardsParams = /\/awards\/([a-zA-Z]+)/;
 
 const server = http.createServer((req, res) => {
 
-  //FIX GET BY AUTHOR AND BOOK ROUTES
+  res.setHeader('Access-Control-Allow-Origin', '*');
 
   //AUTHOR ROUTES=>
 
@@ -60,7 +60,7 @@ const server = http.createServer((req, res) => {
     grpc.getAward(req, res, award, year)
   };
 
-  // //QUERY ROUTES
+  // //QUERY ROUTES =>
 
   if (req.url === '/authors-books' && req.method === 'GET') grpc.getAuthorsBooks(req, res);
 
@@ -73,7 +73,7 @@ const server = http.createServer((req, res) => {
 });
 
 const hostname = 'localhost';
-const port = 3000;
+const port = 4000;
 
 server.listen(port, hostname, () => {
   console.log(`Server listening on http://${hostname}:${port}`);
