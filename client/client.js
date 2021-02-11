@@ -52,7 +52,6 @@ const createAuthor = (req, res) => {
         }));
       }
     })
-
   });
 };
 
@@ -97,49 +96,65 @@ const getAuthor = (req, res, name) => {
 
 };
 
-const updateAuthor = (req, res, name, updatedName) => {
-  const request = {
-    name: name,
-    updatedName: updatedName
-  };
+const updateAuthor = (req, res) => {
+  let body = [];
 
-  authorClient.updateAuthor(request, (error, response) => {
-    try {
-      res.writeHead(200, {
-        'Content-type': 'application/json'
-      });
-      res.end(JSON.stringify(response));
-    } catch {
-      res.writeHead(404, {
-        'Content-type': 'application/json'
-      });
-      res.end(JSON.stringify({
-        message: 'Route not found'
-      }));
-    }
-  })
+  req.on('data', (chunk) => {
+    body.push(chunk.toString());
+  });
+
+  req.on('end', () => {
+    const { name, updatedName } = JSON.parse(body);
+    const request = {
+      name: name,
+      updatedName: updatedName
+    };
+
+    authorClient.updateAuthor(request, (error, response) => {
+      try {
+        res.writeHead(201, {
+          'Content-Type': 'application/json'
+        });
+        return res.end(JSON.stringify(response));
+      } catch {
+        res.writeHead(404, {
+          'Content-type': 'application/json'
+        });
+        res.end(JSON.stringify({
+          message: 'Route not found'
+        }));
+      }
+    })
+  });
 };
 
-const deleteAuthor = (req, res, name) => {
-  const request = {
-    name: name
-  };
+const deleteAuthor = (req, res) => {
+  let body = [];
 
-  authorClient.deleteAuthor(request, (error, response) => {
-    try {
-      res.writeHead(200, {
-        'Content-type': 'application/json'
-      });
-      res.end(JSON.stringify(response));
-    } catch {
-      res.writeHead(404, {
-        'Content-type': 'application/json'
-      });
-      res.end(JSON.stringify({
-        message: 'Route not found'
-      }));
-    }
-  })
+  req.on('data', (chunk) => {
+    body.push(chunk.toString());
+  });
+
+  req.on('end', () => {
+    const { name } = JSON.parse(body);
+    const request = { name };
+
+    authorClient.deleteAuthor(request, (error, response) => {
+      try {
+        res.writeHead(201, {
+          'Content-Type': 'application/json'
+        });
+        return res.end(JSON.stringify(response));
+      } catch {
+        res.writeHead(404, {
+          'Content-type': 'application/json'
+        });
+        res.end(JSON.stringify({
+          message: 'Route not found'
+        }));
+      }
+    })
+  });
 };
 
 const createBook = (req, res, title, author, isbn, bookFormat, pages) => {
