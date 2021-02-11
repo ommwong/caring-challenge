@@ -94,7 +94,6 @@ const getBooksAwards = (call, callback) => {
   .select('books.title', 'awards.award')
   .then(data => {
     if (data) {
-      console.log(data);
       callback(null, {
         result: data
       })

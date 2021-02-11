@@ -11,7 +11,8 @@ const createAuthor = (call, callback) => {
     .insert(author)
     .then(() => {
       callback(null, author)
-    })
+  })
+
 };
 
 const getAuthors = (call, callback) => {
@@ -85,7 +86,6 @@ const getAuthorsBooks = (call, callback) => {
     .select('authors.name', 'books.title')
     .then(data => {
       if (data) {
-        console.log(data)
         callback(null, {
           result: data
         });
@@ -102,7 +102,6 @@ const getAuthorsBooksAwards = (call, callback) => {
     .select('authors.name', 'books.title', 'awards.award')
     .then(data => {
       if (data) {
-        console.log(data);
         callback(null, {
           result: data
         })
@@ -118,7 +117,6 @@ const getAuthorsAwards = (call, callback) => {
   .select('authors.name', 'awards.award')
   .then(data => {
     if (data) {
-      console.log(data);
       callback(null, {
         result: data
       })
