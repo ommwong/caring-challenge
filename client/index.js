@@ -9,12 +9,12 @@ const server = http.createServer((req, res) => {
 
   if (req.url === '/authors' && req.method === 'GET') grpc.getAuthors(req, res);
 
-  if (req.url.match(authorsParams) && req.method === 'POST') {
-    const name = req.url.split('/')[2].split('%20').join(' ')
-    grpc.createAuthor(req, res, name);
-  };
+  // if (req.url.match(authorsParams) && req.method === 'POST') {
+  //   const name = req.url.split('/')[2].split('%20').join(' ')
+  //   grpc.createAuthor(req, res, name);
+  // };
 
-  // if (req.url === '/authors' && req.method === 'POST') grpc.createAuthor(req, res);
+  if (req.url === '/authors' && req.method === 'POST') grpc.createAuthor(req, res);
 
   if (req.url.match(authorsParams) && req.method === 'DELETE') {
     const name = req.url.split('=')[1].split('%20').join(' ');
@@ -43,6 +43,16 @@ const server = http.createServer((req, res) => {
     const bookFormat = url[5];
     const pages = url[6];
     grpc.createBook(req, res, title, author, isbn, bookFormat, pages);
+  };
+
+  if (req.url.match(/\/books\/([a-zA-Z]+)/) && req.method === 'DELETE') {
+    const title = req.url.split('/')[2].split('%20').join(' ');
+    grpc.deleteBook(req, res, title)
+  };
+
+  if (req.url.match(/\/books\/([a-zA-Z]+)/) && req.method === 'GET') {
+    const title = req.url.split('/')[2].split('%20').join(' ');
+    grpc.getBook(req, res, title)
   };
 
   if (req.url === '/awards') {

@@ -26,40 +26,34 @@ const awardClient = new literaryPackage.AwardService(
   grpc.credentials.createInsecure()
 )
 
-const createAuthor = (req, res, name) => {
+const createAuthor = (req, res) => {
+  let body = [];
 
-  const request = {
-    name: name
-  };
+  req.on('data', (chunk) => {
+    body.push(chunk.toString());
+  });
 
-  // let body = [];
-  // req.on('data', (chunk) => {
-  //   body.push(chunk.toString());
-  // });
+  req.on('end', () => {
+    const { name } = JSON.parse(body);
+    const request = { name };
 
-  // req.on('end', () => {
-  //   const { name } = JSON.parse(body);
-  //   request.name = name;
-  //   res.writeHead(201, {
-  //     'Content-Type': 'application/json'
-  //   });
-  // });
+    authorClient.createAuthor(request, (error, response) => {
+      try {
+        res.writeHead(201, {
+          'Content-Type': 'application/json'
+        });
+        return res.end(JSON.stringify(response));
+      } catch {
+        res.writeHead(404, {
+          'Content-type': 'application/json'
+        });
+        res.end(JSON.stringify({
+          message: 'Route not found'
+        }));
+      }
+    })
 
-  authorClient.createAuthor(request, (error, response) => {
-    try {
-      res.writeHead(201, {
-        'Content-Type': 'application/json'
-      });
-      return res.end(JSON.stringify(response));
-    } catch {
-      res.writeHead(404, {
-        'Content-type': 'application/json'
-      });
-      res.end(JSON.stringify({
-        message: 'Route not found'
-      }));
-    }
-  })
+  });
 };
 
 const getAuthors = (req, res) => {
@@ -174,17 +168,24 @@ const createBook = (req, res, title, author, isbn, bookFormat, pages) => {
   })
 };
 
-const getBook = (req, res) => {
+const getBook = (req, res, title) => {
   const request = {
     title: title,
   };
 
   bookClient.getBook(request, (error, response) => {
-    if (!error) {
-      console.log('Here is the book:', response);
-    } else {
-      console.error(error);
-      console.log('Book is not found!');
+    try {
+      res.writeHead(201, {
+        'Content-type': 'application/json'
+      });
+      res.end(JSON.stringify(response));
+    } catch {
+      res.writeHead(404, {
+        'Content-type': 'application/json'
+      });
+      res.end(JSON.stringify({
+        message: 'Route not found'
+      }));
     }
   })
 };
@@ -226,17 +227,24 @@ const updateBook = (req, res) => {
   })
 };
 
-const deleteBook = (req, res) => {
+const deleteBook = (req, res, title) => {
   const request = {
     title: title
   };
 
   bookClient.deleteBook(request, (error, response) => {
-    if (!error) {
-      console.log('Successfully deleted book', response);
-    } else {
-      console.error(error);
-      console.log('Book does not exist');
+    try {
+      res.writeHead(200, {
+        'Content-type': 'application/json'
+      });
+      res.end(JSON.stringify(response));
+    } catch {
+      res.writeHead(404, {
+        'Content-type': 'application/json'
+      });
+      res.end(JSON.stringify({
+        message: 'Route not found'
+      }));
     }
   })
 };
@@ -398,28 +406,6 @@ const getBooksAwards = (req, res) => {
     }
   })
 }
-
-(function () {
-  // createAuthor();
-  // getAuthors();
-  // getAuthor();
-  //  updateAuthor();
-  // deleteAuthor();
-  // createBook();
-  // getBook();
-  // getBooks();
-  // updateBook();
-  // deleteBook();
-  // createAward();
-  // getAwards();
-  // getAward()
-  // updateAward()
-  // deleteAward()
-  // getAuthorsBooks();
-  // getAuthorsBooksAwards()
-  // getAuthorsAwards()
-  // getBooksAwards()
-})();
 
 module.exports = {
   createAuthor,
