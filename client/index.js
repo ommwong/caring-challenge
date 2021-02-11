@@ -4,6 +4,9 @@ const grpc = require('./client');
 const authorsParams = /\/authors\/([a-zA-Z]+)/;
 
 const server = http.createServer((req, res) => {
+
+  //FIX GET BY AUTHOR AND BOOK ROUTES
+
   //AUTHOR ROUTES=>
 
   if (req.url === '/authors') {
@@ -18,16 +21,15 @@ const server = http.createServer((req, res) => {
     grpc.getAuthor(req, res, name);
   };
 
-  // if (req.url.match(authorsParams) && req.method === 'PUT') {
-  //   const name = req.url.split('/')[2].split('%20').join(' ');
-  //   const updatedName = req.url.split('/')[3].split('%20').join(' ');
-  //   grpc.updateAuthor(req, res, name, updatedName);
-  // }
-
-
-
   // //BOOKS ROUTES =>
-  // if (req.url === '/books' && req.method === 'GET') grpc.getBooks(req, res);
+
+  if (req.url === '/books') {
+    if (req.method === 'GET') grpc.getBooks(req, res);
+    if (req.method === 'POST') grpc.createBook(req, res);
+    if (req.method === 'DELETE') grpc.deleteBook(req, res);
+    if (req.method === 'PUT') grpc.updateBook(req, res);
+  };
+
 
   // if (req.url.match(booksParams) && req.method === 'POST') {
   //   const url = req.url.split('/');
